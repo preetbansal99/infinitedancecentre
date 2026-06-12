@@ -204,14 +204,7 @@ export function CinematicHero({ onExplore }: CinematicHeroProps) {
             className="absolute inset-0 flex flex-col items-center justify-center z-10 pointer-events-none"
             style={{ opacity: logoOpacity, scale: logoScale, x: logoX, y: logoY }}
           >
-            <div 
-              className="pointer-events-auto cursor-pointer" 
-              onClick={() => {
-                useBookingStore.getState().setPendingScrollId("courses");
-                if (onExplore) onExplore();
-              }}
-              title="Enter Site"
-            >
+            <div className="pointer-events-none">
               <Logo size="hero" className="filter-neon-combo animate-neon-pulse" />
             </div>
             <motion.p
