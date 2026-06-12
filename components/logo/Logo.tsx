@@ -52,6 +52,7 @@ export function Logo({
           "shadow-[inset_0_2px_4px_rgba(255,255,255,0.06),inset_0_-4px_8px_rgba(0,0,0,0.6),0_10px_30px_rgba(0,0,0,0.5)]",
           "border border-white/[0.03]"
         ],
+        !href && "pointer-events-none select-none",
         className
       )}
       style={{ width, height }}
@@ -66,8 +67,10 @@ export function Logo({
         width={width}
         height={height}
         className={cn(
-          "relative z-10 object-contain w-full h-full"
+          "relative z-10 object-contain w-full h-full",
+          !href && "pointer-events-none select-none"
         )}
+        draggable={false}
         priority={size === "hero" || size === "header"}
         quality={100}
       />
