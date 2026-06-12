@@ -146,17 +146,17 @@ export function StickyHeader() {
           >
             Admin Portal
           </Link>
-          <div className="flex flex-col gap-3 w-full max-w-xs">
+          <div className="flex flex-col gap-3 w-full max-w-[280px]">
             <motion.button
               onClick={() => { openEnquireModal(); setMobileOpen(false); }}
-              className="border border-white/20 text-white font-semibold px-8 py-4 rounded-lg text-body-sm w-full"
+              className="border border-white/20 text-white font-semibold px-6 py-3 rounded-lg text-sm w-full"
               whileTap={{ scale: 0.97 }}
             >
               Send Enquiry
             </motion.button>
             <motion.button
               onClick={() => { openBookingModal(); setMobileOpen(false); }}
-              className="bg-cta-magenta text-white font-semibold px-8 py-4 rounded-lg shadow-magenta text-body w-full"
+              className="bg-cta-magenta text-white font-semibold px-6 py-3 rounded-lg shadow-magenta text-sm w-full"
               whileTap={{ scale: 0.97 }}
             >
               Book Free Trial

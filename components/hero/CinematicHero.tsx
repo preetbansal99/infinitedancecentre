@@ -167,10 +167,10 @@ export function CinematicHero({ onExplore }: CinematicHeroProps) {
           Move With Confidence. Train With the Best.
         </p>
         <div className="flex flex-col sm:flex-row gap-3 w-full max-w-md justify-center">
-          <ClayButton variant="outline" size="lg" onClick={() => openEnquireModal()}>
+          <ClayButton variant="outline" size="sm" onClick={() => openEnquireModal()}>
             Send Enquiry
           </ClayButton>
-          <ClayButton variant="primary" size="lg" onClick={() => openBookingModal()}>
+          <ClayButton variant="primary" size="sm" onClick={() => openBookingModal()}>
             Book Free Trial
           </ClayButton>
         </div>
@@ -204,7 +204,16 @@ export function CinematicHero({ onExplore }: CinematicHeroProps) {
             className="absolute inset-0 flex flex-col items-center justify-center z-10 pointer-events-none"
             style={{ opacity: logoOpacity, scale: logoScale, x: logoX, y: logoY }}
           >
-            <Logo size="hero" className="filter-neon-combo animate-neon-pulse" />
+            <div 
+              className="pointer-events-auto cursor-pointer" 
+              onClick={() => {
+                useBookingStore.getState().setPendingScrollId("courses");
+                if (onExplore) onExplore();
+              }}
+              title="Enter Site"
+            >
+              <Logo size="hero" className="filter-neon-combo animate-neon-pulse" />
+            </div>
             <motion.p
               className="mt-6 text-body-sm tracking-[0.25em] text-text-secondary uppercase font-medium"
               style={{ opacity: taglineOpacity }}
@@ -288,10 +297,10 @@ export function CinematicHero({ onExplore }: CinematicHeroProps) {
               </p>
 
               {/* ── SECONDARY CTAS: ENQUIRE & BOOK ── */}
-              <div className="flex flex-col sm:flex-row gap-4 w-full justify-center mb-10 pointer-events-auto">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full justify-center mb-8 sm:mb-10 pointer-events-auto max-w-[280px] sm:max-w-none mx-auto">
                 <motion.button
                   onClick={() => openEnquireModal()}
-                  className="flex-1 sm:flex-none sm:w-48 border border-white/20 text-gray-200 hover:text-white font-semibold py-4 px-6 rounded-xl text-body tracking-wide text-center bg-white/10 hover:bg-white/15 transition-all shadow-lg"
+                  className="w-full sm:w-48 border border-white/20 text-gray-200 hover:text-white font-semibold py-3 px-4 sm:py-4 sm:px-6 rounded-xl text-sm sm:text-base tracking-wide text-center bg-white/10 hover:bg-white/15 transition-all shadow-lg"
                   whileTap={{ scale: 0.97 }}
                   aria-label="Send an enquiry about courses"
                 >
@@ -299,7 +308,7 @@ export function CinematicHero({ onExplore }: CinematicHeroProps) {
                 </motion.button>
                 <motion.button
                   onClick={() => openBookingModal()}
-                  className="flex-1 sm:flex-none sm:w-64 bg-gradient-to-r from-cyan-500 to-fuchsia-500 hover:from-cyan-400 hover:to-fuchsia-400 text-white font-bold py-4 px-8 rounded-xl text-body tracking-wide shadow-[0_0_15px_rgba(6,182,212,0.2)] transition-all"
+                  className="w-full sm:w-64 bg-gradient-to-r from-cyan-500 to-fuchsia-500 hover:from-cyan-400 hover:to-fuchsia-400 text-white font-bold py-3 px-4 sm:py-4 sm:px-8 rounded-xl text-sm sm:text-base tracking-wide shadow-[0_0_15px_rgba(6,182,212,0.2)] transition-all"
                   whileTap={{ scale: 0.97 }}
                   aria-label="Book a free trial class"
                 >
