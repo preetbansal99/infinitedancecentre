@@ -1,33 +1,124 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  /* Neon glow SVG filter stacks (used as CSS filter on SVG elements) */
+  --filter-neon-blue:   drop-shadow(0 0 4px #3B82F6) drop-shadow(0 0 12px rgba(59,130,246,0.7)) drop-shadow(0 0 24px rgba(59,130,246,0.4));
+  --filter-neon-purple: drop-shadow(0 0 4px #8B5CF6) drop-shadow(0 0 12px rgba(139,92,246,0.7)) drop-shadow(0 0 24px rgba(139,92,246,0.4));
+  --filter-neon-combo:  drop-shadow(0 0 6px #3B82F6) drop-shadow(0 0 16px rgba(139,92,246,0.8)) drop-shadow(0 0 32px rgba(192,132,252,0.5));
+  --filter-neon-pulse:  drop-shadow(0 0 8px #3B82F6) drop-shadow(0 0 20px rgba(139,92,246,0.9)) drop-shadow(0 0 40px rgba(192,132,252,0.6));
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+    background-color: #0D0D12;
+    color: #F5F5F7;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
-}
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background-color: #0D0D12;
+    color: #F5F5F7;
+    overflow-x: hidden;
+  }
+
+  /* Hide scrollbar but keep scroll functionality */
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  /* Glassmorphism utility */
+  .glass {
+    background: rgba(255,255,255,0.03);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.08);
   }
+
+  .glass-strong {
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.12);
+  }
+
+  /* Claymorphism utility */
+  .clay {
+    background: #1E1E28;
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: inset 0 1px 1px rgba(255,255,255,0.05), 0 4px 12px rgba(0,0,0,0.3);
+  }
+
+  /* Neon glow filter utilities */
+  .filter-neon-blue   { filter: var(--filter-neon-blue); }
+  .filter-neon-purple { filter: var(--filter-neon-purple); }
+  .filter-neon-combo  { filter: var(--filter-neon-combo); }
+  .filter-neon-pulse  { filter: var(--filter-neon-pulse); }
+
+  /* Gradient text */
+  .text-gradient-neon {
+    background: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 50%, #C084FC 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Touch target minimum */
+  .touch-target {
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
+
+/* Reduced motion overrides */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  /* The cinematic hero reduced-motion class */
+  .hero-reduced {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+
+/* Shimmer skeleton */
+.skeleton {
+  background: linear-gradient(90deg, #1E1E28 25%, #2A2A38 50%, #1E1E28 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s linear infinite;
+}
+
+/* Screen shake keyframe */
+@keyframes screenShake {
+  0%   { transform: translateX(0); }
+  15%  { transform: translateX(-8px); }
+  30%  { transform: translateX(8px); }
+  45%  { transform: translateX(-6px); }
+  60%  { transform: translateX(6px); }
+  75%  { transform: translateX(-3px); }
+  90%  { transform: translateX(3px); }
+  100% { transform: translateX(0); }
+}
+
+.screen-shake {
+  animation: screenShake 0.35s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+}
+
+/* Particle float keyframes (used by ParticleBurst) */
+@keyframes particleFloat {
+  0%   { opacity: 1; transform: translate(0, 0) scale(1); }
+  100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(0); }
 }
