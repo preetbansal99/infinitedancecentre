@@ -290,7 +290,7 @@ export function CinematicHero({ onExplore }: CinematicHeroProps) {
               </p>
 
               {/* ── SECONDARY CTAS: ENQUIRE & BOOK ── */}
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full justify-center mb-8 sm:mb-10 pointer-events-auto max-w-[280px] sm:max-w-none mx-auto">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full justify-center mb-8 sm:mb-10 max-w-[280px] sm:max-w-none mx-auto">
                 <motion.button
                   onClick={() => openEnquireModal()}
                   className="w-full sm:w-48 border border-white/20 text-gray-200 hover:text-white font-semibold py-3 px-4 sm:py-4 sm:px-6 rounded-xl text-sm sm:text-base tracking-wide text-center bg-white/10 hover:bg-white/15 transition-all shadow-lg"
@@ -310,7 +310,7 @@ export function CinematicHero({ onExplore }: CinematicHeroProps) {
               </div>
 
               {/* ── SOCIAL PROOF ── */}
-              <div className="flex flex-col items-center justify-center gap-4 pointer-events-auto">
+              <div className="flex flex-col items-center justify-center gap-4">
                 <div className="flex flex-wrap justify-center gap-6">
                   <span className="flex items-center gap-2 text-body font-medium text-white drop-shadow-sm">
                     <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
@@ -341,7 +341,7 @@ export function CinematicHero({ onExplore }: CinematicHeroProps) {
                 useBookingStore.getState().setPendingScrollId("courses");
                 if (onExplore) onExplore();
               }}
-              className="absolute bottom-8 left-1/2 -translate-x-1/2 group flex items-center gap-3 text-white transition-all pointer-events-auto bg-white/5 hover:bg-white/10 border border-white/10 hover:border-cyan-500/30 rounded-full px-8 py-3.5 backdrop-blur-md shadow-lg"
+              className="absolute bottom-8 left-1/2 -translate-x-1/2 group flex items-center gap-3 text-white transition-all bg-white/5 hover:bg-white/10 border border-white/10 hover:border-cyan-500/30 rounded-full px-8 py-3.5 backdrop-blur-md shadow-lg"
               aria-label="Explore the rest of the website"
               whileHover={{ y: -2 }}
               whileTap={{ scale: 0.98 }}
