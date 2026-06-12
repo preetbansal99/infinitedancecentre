@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useBookingStore } from "@/hooks/useBookingStore";
-import { GlassCard } from "@/components/shared/GlassCard";
 import { StatusPill } from "@/components/shared/StatusPill";
 import { DetailDrawer } from "@/components/shared/DetailDrawer";
 import { EmptyState } from "@/components/shared/EmptyState";
@@ -86,10 +85,10 @@ export function LeadsList() {
             <button
               key={s}
               onClick={() => setFilterStatus(s)}
-              className={`px-3 py-1.5 rounded-full text-caption font-medium transition-all ${
+              className={`px-4 py-1.5 rounded-full text-caption font-semibold transition-all ${
                 filterStatus === s
-                  ? "bg-accent-purple/20 text-accent-light border border-accent-purple/40"
-                  : "glass text-text-muted hover:text-text-secondary"
+                  ? "bg-white text-bg"
+                  : "bg-surface-el border border-white/5 text-text-muted hover:text-white hover:bg-white/5"
               }`}
             >
               {s}
@@ -108,11 +107,11 @@ export function LeadsList() {
       ) : (
         <div className="space-y-3">
           {filtered.map((lead) => (
-            <GlassCard
+            <div
               key={lead.id}
-              radius="md"
-              highlight={lead.status === "New"}
-              className="p-4 cursor-pointer hover:border-white/15 transition-colors"
+              className={`bg-surface-el border rounded-xl p-4 cursor-pointer hover:bg-white/[0.02] transition-colors ${
+                lead.status === "New" ? "border-cta-magenta/30 shadow-[0_0_15px_rgba(225,29,72,0.1)]" : "border-white/5"
+              }`}
               onClick={() => {
                 setSelectedLead(lead);
                 setNote(lead.ownerNote || "");
@@ -137,7 +136,7 @@ export function LeadsList() {
                   📝 {lead.note}
                 </p>
               )}
-            </GlassCard>
+            </div>
           ))}
         </div>
       )}

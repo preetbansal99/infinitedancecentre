@@ -40,3 +40,43 @@ export async function copyMessageToClipboard(data: BookingFormData): Promise<boo
     return false;
   }
 }
+
+// ── ENQUIRY HELPERS ──
+
+export interface EnquiryData {
+  fullName: string;
+  phone: string;
+  courseName: string;
+}
+
+export function buildEnquiryMessage(data: EnquiryData): string {
+  const lines = [
+    "❓ New Course Enquiry — Infinite Dance Centre",
+    "",
+    `👤 Name: ${data.fullName}`,
+    `📱 Phone: +91 ${data.phone}`,
+    `🎵 Course: ${data.courseName}`,
+    "",
+    `📅 Received: ${new Date().toLocaleString("en-IN", {
+      timeZone: "Asia/Kolkata",
+      dateStyle: "medium",
+      timeStyle: "short",
+    })} IST`,
+  ];
+  return lines.join("\n");
+}
+
+export function buildEnquiryWhatsAppURL(data: EnquiryData): string {
+  const message = buildEnquiryMessage(data);
+  const encoded = encodeURIComponent(message);
+  return `https://wa.me/${OWNER_PHONE}?text=${encoded}`;
+}
+
+export async function copyEnquiryMessageToClipboard(data: EnquiryData): Promise<boolean> {
+  try {
+    await navigator.clipboard.writeText(buildEnquiryMessage(data));
+    return true;
+  } catch {
+    return false;
+  }
+}

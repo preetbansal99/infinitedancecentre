@@ -27,21 +27,21 @@ export function CoursesSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5 }}
-          className="text-center mb-12"
+          className="flex items-end justify-between mb-12"
         >
-          <p className="text-caption tracking-[0.3em] text-accent-light uppercase font-semibold mb-3">
-            WHAT WE TEACH
-          </p>
-          <h2 className="text-display-md font-bold text-text-primary mb-3">
-            Our Courses
-          </h2>
-          <p className="text-body text-text-secondary max-w-lg mx-auto">
-            From high-energy fitness to classical grace — find your rhythm with us.
-          </p>
+          <div>
+            <p className="text-caption tracking-[0.3em] text-accent-light uppercase font-semibold mb-3">
+              WHAT WE TEACH
+            </p>
+            <h2 className="text-display-md font-display font-bold text-text-primary">
+              Our Courses
+            </h2>
+          </div>
+          <div className="hidden md:block h-px flex-1 ml-8 bg-gradient-to-r from-accent-purple/40 to-transparent" />
         </motion.div>
 
         {/* Courses Container */}
-        <div className="flex overflow-x-auto snap-x snap-mandatory gap-5 pb-8 -mx-6 px-6 md:mx-0 md:px-0 md:grid md:grid-cols-3 md:overflow-visible scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+        <div className="flex overflow-x-auto snap-x snap-mandatory gap-5 pb-8 -mx-6 px-6 md:mx-0 md:px-0 md:grid md:grid-cols-2 md:overflow-visible scrollbar-hide">
           {MOCK_COURSES.map((course, i) => {
             const Icon = ICONS[course.id] || Music;
             return (

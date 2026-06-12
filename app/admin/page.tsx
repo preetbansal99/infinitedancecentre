@@ -35,19 +35,19 @@ const QuickActions = ({ setActiveTab }: { setActiveTab: (t: TabId) => void }) =>
     <div className="mb-8">
       <h2 className="text-body-sm tracking-[0.2em] text-text-muted uppercase font-semibold mb-4">Quick Actions</h2>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-        <button onClick={() => setActiveTab("students")} className="glass-strong hover:bg-white/5 transition p-4 rounded-xl flex flex-col items-center justify-center gap-3 text-text-primary text-body-sm font-medium border border-white/5">
+        <button onClick={() => setActiveTab("students")} className="bg-surface-el hover:bg-white/5 transition p-4 rounded-xl flex flex-col items-center justify-center gap-3 text-text-primary text-body-sm font-medium border border-white/5">
           <UserPlus className="w-6 h-6 text-accent-blue" />
           <span>Add Student</span>
         </button>
-        <button onClick={() => setActiveTab("batches")} className="glass-strong hover:bg-white/5 transition p-4 rounded-xl flex flex-col items-center justify-center gap-3 text-text-primary text-body-sm font-medium border border-white/5">
+        <button onClick={() => setActiveTab("batches")} className="bg-surface-el hover:bg-white/5 transition p-4 rounded-xl flex flex-col items-center justify-center gap-3 text-text-primary text-body-sm font-medium border border-white/5">
           <Calendar className="w-6 h-6 text-accent-light" />
           <span>New Batch</span>
         </button>
-        <button disabled className="glass hover:bg-white/5 transition p-4 rounded-xl flex flex-col items-center justify-center gap-3 text-text-muted text-body-sm font-medium border border-white/5 opacity-50 cursor-not-allowed">
+        <button disabled className="bg-surface-el transition p-4 rounded-xl flex flex-col items-center justify-center gap-3 text-text-muted text-body-sm font-medium border border-white/5 opacity-50 cursor-not-allowed">
           <CheckSquare className="w-6 h-6" />
           <span>Mark Attendance</span>
         </button>
-        <button disabled className="glass hover:bg-white/5 transition p-4 rounded-xl flex flex-col items-center justify-center gap-3 text-text-muted text-body-sm font-medium border border-white/5 opacity-50 cursor-not-allowed">
+        <button disabled className="bg-surface-el transition p-4 rounded-xl flex flex-col items-center justify-center gap-3 text-text-muted text-body-sm font-medium border border-white/5 opacity-50 cursor-not-allowed">
           <IndianRupee className="w-6 h-6" />
           <span>Log Expense</span>
         </button>
@@ -116,7 +116,7 @@ function AdminContent() {
   return (
     <div className="min-h-screen bg-bg flex overflow-hidden">
       {/* Mobile Header & Menu */}
-      <div className="md:hidden fixed top-0 left-0 right-0 h-16 glass-strong border-b border-white/5 z-50 flex items-center justify-between px-4">
+      <div className="md:hidden fixed top-0 left-0 right-0 h-16 bg-surface border-b border-white/5 z-50 flex items-center justify-between px-4">
         <div className="flex items-center gap-3">
           <InfiniteLogoSVG size="header" showWordmark={false} />
           <span className="font-bold text-text-primary tracking-wide">Admin Portal</span>
@@ -141,7 +141,7 @@ function AdminContent() {
       </AnimatePresence>
 
       {/* Desktop Sidebar */}
-      <aside className="hidden md:block w-64 h-screen fixed top-0 left-0 glass-strong border-r border-white/5 z-40">
+      <aside className="hidden md:block w-64 h-screen fixed top-0 left-0 bg-surface border-r border-white/5 z-40">
         <SidebarContent />
       </aside>
 

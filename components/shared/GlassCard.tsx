@@ -3,7 +3,7 @@ import { HTMLAttributes } from "react";
 
 interface GlassCardProps extends HTMLAttributes<HTMLDivElement> {
   radius?: "sm" | "md" | "lg" | "xl";
-  strength?: "default" | "strong";
+  strength?: "default" | "strong" | "premium";
   highlight?: boolean;
   danger?: boolean;
 }
@@ -21,7 +21,7 @@ export function GlassCard({
     <div
       className={cn(
         "relative overflow-hidden",
-        strength === "default" ? "glass" : "glass-strong",
+        strength === "default" ? "glass" : strength === "strong" ? "glass-strong" : "glass-premium",
         {
           "rounded-sm": radius === "sm",
           "rounded-md": radius === "md",

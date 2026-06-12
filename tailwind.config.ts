@@ -37,6 +37,7 @@ const config: Config = {
         whatsapp: "#25D366",
       },
       fontFamily: {
+        display: ["'Clash Display'", "Inter", "system-ui", "sans-serif"],
         sans: ["Inter", "system-ui", "sans-serif"],
         mono: ["JetBrains Mono", "monospace"],
       },
@@ -102,7 +103,6 @@ const config: Config = {
       },
       animation: {
         "neon-pulse":    "neonPulse 3s ease-in-out infinite",
-        "cta-pulse":     "ctaPulse 2s ease-in-out infinite",
         "overdue-pulse": "overduePulse 2s ease-in-out infinite",
         "shimmer":       "shimmer 1.5s linear infinite",
         "float":         "float 6s ease-in-out infinite",
@@ -114,10 +114,7 @@ const config: Config = {
           "0%, 100%": { opacity: "0.80", filter: "brightness(1.0)" },
           "50%":      { opacity: "1.00", filter: "brightness(1.3)" },
         },
-        ctaPulse: {
-          "0%, 100%": { boxShadow: "0 0 20px rgba(225,29,72,0.35)" },
-          "50%":      { boxShadow: "0 0 40px rgba(225,29,72,0.60)" },
-        },
+
         overduePulse: {
           "0%, 100%": { opacity: "0.70" },
           "50%":      { opacity: "1.00" },

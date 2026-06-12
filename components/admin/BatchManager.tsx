@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useBookingStore } from "@/hooks/useBookingStore";
-import { GlassCard } from "@/components/shared/GlassCard";
 import { StatusPill } from "@/components/shared/StatusPill";
 import { ClayButton } from "@/components/shared/ClayButton";
 import { DetailDrawer } from "@/components/shared/DetailDrawer";
@@ -67,7 +66,7 @@ export function BatchManager() {
           const fillPercent = Math.round((batch.enrolled / batch.capacity) * 100);
 
           return (
-            <GlassCard key={batch.id} radius="md" className="p-5">
+            <div key={batch.id} className="bg-surface-el border border-white/5 rounded-xl p-5 hover:bg-white/[0.02] transition-colors">
               <div className="flex items-start justify-between mb-3">
                 <div>
                   <div className="flex items-center gap-2 mb-1">
@@ -107,7 +106,7 @@ export function BatchManager() {
                   <span className="font-mono">{batch.enrolled}/{batch.capacity}</span>
                 </div>
               </div>
-            </GlassCard>
+            </div>
           );
         })}
       </div>

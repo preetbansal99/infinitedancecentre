@@ -28,10 +28,15 @@ export function Footer() {
           {/* Contact */}
           <div className="flex flex-col items-center md:items-start gap-3">
             <p className="text-body-sm font-semibold text-text-primary mb-1">Contact</p>
-            <div className="flex items-center gap-2 text-caption text-text-secondary">
-              <MapPin className="w-3.5 h-3.5 text-accent-light flex-shrink-0" />
-              <span>C-3/161, 162, Yamuna Vihar, Delhi — 110053</span>
-            </div>
+            <a 
+              href="https://www.google.com/maps/search/Infinite+Dance+Centre+Yamuna+Vihar+Delhi"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-caption text-text-secondary hover:text-accent-light transition-colors cursor-pointer group"
+            >
+              <MapPin className="w-3.5 h-3.5 text-accent-light flex-shrink-0 group-hover:scale-110 transition-transform" />
+              <span className="group-hover:underline underline-offset-2">C-3/161, 162, Yamuna Vihar, Delhi — 110053</span>
+            </a>
             <div className="flex items-center gap-2 text-caption text-text-secondary">
               <Phone className="w-3.5 h-3.5 text-accent-light flex-shrink-0" />
               <a href="tel:+919971231552" className="hover:text-text-primary transition-colors">+91 99712 31552</a>
@@ -40,10 +45,15 @@ export function Footer() {
               <Clock className="w-3.5 h-3.5 text-accent-light flex-shrink-0" />
               <span>Mon–Sat: 6 AM – 10 PM</span>
             </div>
-            <div className="flex items-center gap-2 text-caption text-text-secondary">
-              <Instagram className="w-3.5 h-3.5 text-accent-light flex-shrink-0" />
-              <span>@infinitedancecentre</span>
-            </div>
+            <a 
+              href="https://www.instagram.com/theinfinitedancecentre" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-caption text-text-secondary hover:text-accent-light transition-colors cursor-pointer group"
+            >
+              <Instagram className="w-3.5 h-3.5 text-accent-light flex-shrink-0 group-hover:scale-110 transition-transform" />
+              <span className="group-hover:underline underline-offset-2">@theinfinitedancecentre</span>
+            </a>
           </div>
         </div>
 

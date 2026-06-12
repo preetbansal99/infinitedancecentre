@@ -7,6 +7,7 @@ import { ReviewsSection } from "@/components/sections/ReviewsSection";
 import { AboutSection } from "@/components/sections/AboutSection";
 import { LocationSection } from "@/components/sections/LocationSection";
 import { BookingSheet } from "@/components/booking/BookingSheet";
+import { EnquireSheet } from "@/components/booking/EnquireSheet";
 import { Footer } from "@/components/layout/Footer";
 import { StickyHeader } from "@/components/layout/StickyHeader";
 import { useBookingStore } from "@/hooks/useBookingStore";
@@ -57,8 +58,9 @@ export default function HomePage() {
         </main>
       )}
 
-      {/* Global Booking Sheet (triggered from anywhere) */}
+      {/* Global Booking & Enquire Sheets */}
       <BookingSheet />
+      <EnquireSheet />
     </>
   );
 }

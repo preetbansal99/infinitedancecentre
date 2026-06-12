@@ -1,15 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400&display=swap');
+@import url('https://api.fontshare.com/v2/css?f[]=clash-display@400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  /* Neon glow SVG filter stacks (used as CSS filter on SVG elements) */
-  --filter-neon-blue:   drop-shadow(0 0 4px #3B82F6) drop-shadow(0 0 12px rgba(59,130,246,0.7)) drop-shadow(0 0 24px rgba(59,130,246,0.4));
-  --filter-neon-purple: drop-shadow(0 0 4px #8B5CF6) drop-shadow(0 0 12px rgba(139,92,246,0.7)) drop-shadow(0 0 24px rgba(139,92,246,0.4));
-  --filter-neon-combo:  drop-shadow(0 0 6px #3B82F6) drop-shadow(0 0 16px rgba(139,92,246,0.8)) drop-shadow(0 0 32px rgba(192,132,252,0.5));
-  --filter-neon-pulse:  drop-shadow(0 0 8px #3B82F6) drop-shadow(0 0 20px rgba(139,92,246,0.9)) drop-shadow(0 0 40px rgba(192,132,252,0.6));
+  /* Neon glow SVG filter — reserved for logo only */
+  --filter-neon-combo: drop-shadow(0 0 6px #3B82F6) drop-shadow(0 0 16px rgba(139,92,246,0.8)) drop-shadow(0 0 32px rgba(192,132,252,0.5));
 }
 
 @layer base {
@@ -31,13 +29,30 @@
     overflow-x: hidden;
   }
 
+  /* Subtle grain texture — breaks flat plastic look */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-size: 200px 200px;
+  }
+
+  /* Headings use Clash Display */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Clash Display', 'Inter', system-ui, sans-serif;
+  }
+
   /* Hide scrollbar but keep scroll functionality */
   .no-scrollbar::-webkit-scrollbar { display: none; }
   .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 }
 
 @layer utilities {
-  /* Glassmorphism utility */
+  /* Glassmorphism utility — matte, no neon */
   .glass {
     background: rgba(255,255,255,0.03);
     backdrop-filter: blur(12px);
@@ -52,6 +67,19 @@
     border: 1px solid rgba(255,255,255,0.12);
   }
 
+  /* Premium glass — etched top-bright, bottom-faded border */
+  .glass-premium {
+    background: rgba(255,255,255,0.03);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid transparent;
+    background-clip: padding-box;
+    box-shadow: 
+      inset 0 1px 0 rgba(255,255,255,0.12),
+      inset 0 -1px 0 rgba(255,255,255,0.03),
+      0 4px 24px rgba(0,0,0,0.4);
+  }
+
   /* Claymorphism utility */
   .clay {
     background: #1E1E28;
@@ -59,11 +87,8 @@
     box-shadow: inset 0 1px 1px rgba(255,255,255,0.05), 0 4px 12px rgba(0,0,0,0.3);
   }
 
-  /* Neon glow filter utilities */
-  .filter-neon-blue   { filter: var(--filter-neon-blue); }
-  .filter-neon-purple { filter: var(--filter-neon-purple); }
+  /* Neon glow — reserved for LOGO ONLY */
   .filter-neon-combo  { filter: var(--filter-neon-combo); }
-  .filter-neon-pulse  { filter: var(--filter-neon-pulse); }
 
   /* Gradient text */
   .text-gradient-neon {
@@ -78,6 +103,10 @@
     min-width: 44px;
     min-height: 44px;
   }
+
+  /* Scrollbar hide */
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 }
 
 /* Reduced motion overrides */
@@ -87,7 +116,6 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-  /* The cinematic hero reduced-motion class */
   .hero-reduced {
     transform: none !important;
     opacity: 1 !important;
@@ -99,22 +127,6 @@
   background: linear-gradient(90deg, #1E1E28 25%, #2A2A38 50%, #1E1E28 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s linear infinite;
-}
-
-/* Screen shake keyframe */
-@keyframes screenShake {
-  0%   { transform: translateX(0); }
-  15%  { transform: translateX(-8px); }
-  30%  { transform: translateX(8px); }
-  45%  { transform: translateX(-6px); }
-  60%  { transform: translateX(6px); }
-  75%  { transform: translateX(-3px); }
-  90%  { transform: translateX(3px); }
-  100% { transform: translateX(0); }
-}
-
-.screen-shake {
-  animation: screenShake 0.35s cubic-bezier(0.36, 0.07, 0.19, 0.97);
 }
 
 /* Particle float keyframes (used by ParticleBurst) */

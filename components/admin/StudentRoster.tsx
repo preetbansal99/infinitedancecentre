@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useBookingStore } from "@/hooks/useBookingStore";
-import { GlassCard } from "@/components/shared/GlassCard";
 import { StatusPill } from "@/components/shared/StatusPill";
 import { DetailDrawer } from "@/components/shared/DetailDrawer";
 import { EmptyState } from "@/components/shared/EmptyState";
@@ -163,10 +162,10 @@ export function StudentRoster() {
               <button
                 key={s}
                 onClick={() => setFilterFee(s)}
-                className={`px-3 py-1.5 rounded-full text-caption font-medium transition-all ${
+                className={`px-4 py-1.5 rounded-full text-caption font-semibold transition-all ${
                   filterFee === s
-                    ? "bg-accent-purple/20 text-accent-light border border-accent-purple/40"
-                    : "glass text-text-muted hover:text-text-secondary"
+                    ? "bg-white text-bg"
+                    : "bg-surface-el border border-white/5 text-text-muted hover:text-white hover:bg-white/5"
                 }`}
               >
                 {s}
@@ -195,11 +194,11 @@ export function StudentRoster() {
       ) : (
         <div className="space-y-3">
           {sortedAndFiltered.map((student) => (
-            <GlassCard
+            <div
               key={student.id}
-              radius="md"
-              danger={student.feeStatus === "Overdue"}
-              className="p-4 cursor-pointer hover:border-white/15 transition-colors"
+              className={`bg-surface-el border rounded-xl p-4 cursor-pointer hover:bg-white/[0.02] transition-colors ${
+                student.feeStatus === "Overdue" ? "border-error/30 shadow-[0_0_15px_rgba(239,68,68,0.1)]" : "border-white/5"
+              }`}
               onClick={() => setSelected(student)}
             >
               <div className="flex items-center justify-between mb-2">
@@ -219,7 +218,7 @@ export function StudentRoster() {
                 <span>•</span>
                 <span>{student.timings}</span>
               </div>
-            </GlassCard>
+            </div>
           ))}
         </div>
       )}
@@ -341,14 +340,14 @@ export function StudentRoster() {
                 </div>
 
                 {selected.guardianInfo && (
-                  <GlassCard radius="sm" className="p-3 mt-3">
+                  <div className="bg-surface-el border border-white/5 rounded-lg p-3 mt-3">
                     <p className="text-caption text-text-muted mb-1">Guardian Information</p>
                     <p className="text-body-sm text-text-primary">{selected.guardianInfo.name}</p>
                     <p className="text-caption text-text-secondary">{selected.guardianInfo.relation}</p>
                     {selected.guardianInfo.mobile && (
                       <p className="text-caption text-text-muted font-mono">{selected.guardianInfo.mobile}</p>
                     )}
-                  </GlassCard>
+                  </div>
                 )}
               </div>
             )}

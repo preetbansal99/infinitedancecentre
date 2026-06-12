@@ -17,6 +17,11 @@ interface BookingStore {
   openBookingModal: (courseId?: string) => void;
   closeBookingModal: () => void;
 
+  // ── Enquire modal ──────────────────────────────────────
+  isEnquireOpen: boolean;
+  openEnquireModal: () => void;
+  closeEnquireModal: () => void;
+
   // ── Leads (shared public → admin) ─────────────────────
   leads: Lead[];
   addLead: (lead: Lead) => void;
@@ -58,6 +63,10 @@ export const useBookingStore = create<BookingStore>((set, get) => ({
   preSelectedCourse: null,
   openBookingModal: (courseId) => set({ isBookingOpen: true, preSelectedCourse: courseId ?? null }),
   closeBookingModal: () => set({ isBookingOpen: false, preSelectedCourse: null }),
+
+  isEnquireOpen: false,
+  openEnquireModal: () => set({ isEnquireOpen: true }),
+  closeEnquireModal: () => set({ isEnquireOpen: false }),
 
   // Leads — initialized from mockData, new leads prepended
   leads: MOCK_LEADS,

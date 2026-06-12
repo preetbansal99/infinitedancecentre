@@ -14,7 +14,7 @@ const NAV_LINKS = [
 ];
 
 export function StickyHeader() {
-  const { openBookingModal, setSiteRevealed, setPendingScrollId } = useBookingStore();
+  const { openBookingModal, openEnquireModal, setSiteRevealed, setPendingScrollId } = useBookingStore();
   const { scrollY } = useScroll();
   const [mobileOpen, setMobileOpen] = useState(false);
   const headerBg = useTransform(
@@ -45,7 +45,16 @@ export function StickyHeader() {
       >
         <div className="px-6 md:px-8 h-16 flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2" aria-label="Home">
+          <Link 
+            href="/" 
+            className="flex items-center gap-2" 
+            aria-label="Home"
+            onClick={() => {
+              setSiteRevealed(false);
+              setMobileOpen(false);
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+          >
             <InfiniteLogoSVG size="header" showWordmark={false} />
           </Link>
 
@@ -71,6 +80,13 @@ export function StickyHeader() {
             >
               Admin
             </Link>
+            <motion.button
+              onClick={() => openEnquireModal()}
+              className="bg-surface text-text-primary border border-white/10 text-body-sm font-semibold px-4 py-2.5 rounded-lg hover:border-white/30"
+              whileTap={{ scale: 0.97 }}
+            >
+              Enquire
+            </motion.button>
             <motion.button
               onClick={() => openBookingModal()}
               className="bg-cta-magenta text-white text-body-sm font-semibold px-5 py-2.5 rounded-lg shadow-magenta"
@@ -100,6 +116,14 @@ export function StickyHeader() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
+          {/* Explicit Close Button for Mobile Menu */}
+          <button 
+            onClick={() => setMobileOpen(false)}
+            className="absolute top-6 right-6 p-2 text-text-secondary hover:text-white transition-colors"
+            aria-label="Close menu"
+          >
+            <X className="w-8 h-8" />
+          </button>
           {NAV_LINKS.map((link) => (
             <a
               key={link.href}
@@ -122,13 +146,22 @@ export function StickyHeader() {
           >
             Admin Portal
           </Link>
-          <motion.button
-            onClick={() => { openBookingModal(); setMobileOpen(false); }}
-            className="bg-cta-magenta text-white font-semibold px-8 py-4 rounded-lg shadow-magenta text-body"
-            whileTap={{ scale: 0.97 }}
-          >
-            Book Free Trial
-          </motion.button>
+          <div className="flex flex-col gap-3 w-full max-w-xs">
+            <motion.button
+              onClick={() => { openEnquireModal(); setMobileOpen(false); }}
+              className="border border-white/20 text-white font-semibold px-8 py-4 rounded-lg text-body-sm w-full"
+              whileTap={{ scale: 0.97 }}
+            >
+              Send Enquiry
+            </motion.button>
+            <motion.button
+              onClick={() => { openBookingModal(); setMobileOpen(false); }}
+              className="bg-cta-magenta text-white font-semibold px-8 py-4 rounded-lg shadow-magenta text-body w-full"
+              whileTap={{ scale: 0.97 }}
+            >
+              Book Free Trial
+            </motion.button>
+          </div>
         </motion.div>
       )}
     </div>

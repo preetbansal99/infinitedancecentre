@@ -1,7 +1,6 @@
 "use client";
 
 import { useBookingStore } from "@/hooks/useBookingStore";
-import { GlassCard } from "@/components/shared/GlassCard";
 import { Users, UserCheck, AlertTriangle, TrendingUp } from "lucide-react";
 
 export function AdminStats() {
@@ -24,13 +23,13 @@ export function AdminStats() {
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
       {stats.map((stat) => (
-        <GlassCard key={stat.label} radius="lg" className="p-4 text-center">
-          <div className={`w-10 h-10 rounded-full ${stat.bg} flex items-center justify-center mx-auto mb-2`}>
+        <div key={stat.label} className="bg-surface-el border border-white/5 rounded-2xl p-5 text-center transition-all hover:bg-white/[0.02]">
+          <div className={`w-10 h-10 rounded-full ${stat.bg} flex items-center justify-center mx-auto mb-3`}>
             <stat.icon className={`w-5 h-5 ${stat.color}`} />
           </div>
-          <p className="text-display-md font-bold text-text-primary">{stat.value}</p>
-          <p className="text-caption text-text-muted mt-1">{stat.label}</p>
-        </GlassCard>
+          <p className="text-heading font-bold text-text-primary tracking-tight">{stat.value}</p>
+          <p className="text-caption text-text-muted mt-1 uppercase tracking-wider">{stat.label}</p>
+        </div>
       ))}
     </div>
   );

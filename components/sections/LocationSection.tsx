@@ -70,16 +70,21 @@ export function LocationSection() {
             <GlassCard radius="lg" className="p-6">
               <h3 className="text-heading-sm font-bold text-text-primary mb-4">Contact Details</h3>
               <div className="space-y-4">
-                <div className="flex items-start gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-accent-purple/10 flex items-center justify-center flex-shrink-0">
+                <a 
+                  href={GOOGLE_MAPS_LINK}
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-start gap-3 group hover:opacity-80 transition-opacity cursor-pointer block"
+                >
+                  <div className="w-10 h-10 rounded-lg bg-accent-purple/10 flex items-center justify-center flex-shrink-0 group-hover:bg-accent-purple/20 transition-colors">
                     <MapPin className="w-5 h-5 text-accent-light" />
                   </div>
                   <div>
                     <p className="text-body-sm font-semibold text-text-primary">Address</p>
-                    <p className="text-body-sm text-text-secondary">C-3/161, 162, Block C, Yamuna Vihar</p>
-                    <p className="text-body-sm text-text-secondary">Delhi — 110053</p>
+                    <p className="text-body-sm text-text-secondary group-hover:underline underline-offset-2">C-3/161, 162, Block C, Yamuna Vihar</p>
+                    <p className="text-body-sm text-text-secondary group-hover:underline underline-offset-2">Delhi — 110053</p>
                   </div>
-                </div>
+                </a>
 
                 <div className="flex items-start gap-3">
                   <div className="w-10 h-10 rounded-lg bg-accent-blue/10 flex items-center justify-center flex-shrink-0">
@@ -104,15 +109,20 @@ export function LocationSection() {
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-cta-magenta/10 flex items-center justify-center flex-shrink-0">
+                <a 
+                  href="https://www.instagram.com/theinfinitedancecentre" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-start gap-3 hover:opacity-80 transition-opacity cursor-pointer block group"
+                >
+                  <div className="w-10 h-10 rounded-lg bg-cta-magenta/10 flex items-center justify-center flex-shrink-0 group-hover:bg-cta-magenta/20 transition-colors">
                     <Instagram className="w-5 h-5 text-cta-magenta" />
                   </div>
                   <div>
                     <p className="text-body-sm font-semibold text-text-primary">Instagram</p>
-                    <p className="text-body-sm text-accent-light">@infinitedancecentre</p>
+                    <p className="text-body-sm text-accent-light group-hover:underline underline-offset-2">@theinfinitedancecentre</p>
                   </div>
-                </div>
+                </a>
               </div>
             </GlassCard>
 

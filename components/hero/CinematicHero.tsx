@@ -18,19 +18,17 @@ import { ScrollProgressBar } from "@/components/hero/ScrollProgressBar";
 import { useBookingStore } from "@/hooks/useBookingStore";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { ClayButton } from "@/components/shared/ClayButton";
-import { ChevronDown, MapPin } from "lucide-react";
+import { ChevronDown, MapPin, Star, Users } from "lucide-react";
 
 // ── Ambient Particles (internal sub-component) ──────────────────────────
-const PARTICLE_CONFIGS = Array.from({ length: 24 }, (_, i) => ({
+const PARTICLE_CONFIGS = Array.from({ length: 10 }, (_, i) => ({
   id: i,
-  x: [-45, -38, -30, -22, -15, 0, 15, 22, 30, 38, 45,
-      -40, -25, -10, 10, 25, 40, -35, -18, 5, 18, 35, -28, 28][i] + "%",
-  y: [-40, -20,  10, -35, 20, -45, -30, 15, -10, -40, 25,
-       30, -25,  40, -40, 35, -15,  -5, 42, -42, -18, 12, -30, 30][i] + "%",
-  size: [3,2,4,2,3,2,4,3,2,3,2,4,3,2,3,4,2,3,2,4,3,2,3,4][i],
-  color: ["#3B82F6","#8B5CF6","#C084FC","#F0ABFC","#FFFFFF"][i % 5],
-  delay: i * 0.18,
-  duration: 3 + (i % 4) * 0.8,
+  x: [-40, -22, 0, 22, 40, -30, 15, 30, -15, 35][i] + "%",
+  y: [-35, 15, -40, -20, 25, 30, -30, 10, 40, -10][i] + "%",
+  size: [3, 2, 4, 2, 3, 2, 3, 4, 2, 3][i],
+  color: ["#3B82F6", "#8B5CF6", "#C084FC", "#F0ABFC", "#FFFFFF"][i % 5],
+  delay: i * 0.3,
+  duration: 5 + (i % 3) * 1.2,
 }));
 
 function AmbientParticles({ progress }: { progress: MotionValue<number> }) {
@@ -80,7 +78,7 @@ export function CinematicHero({ onExplore }: CinematicHeroProps) {
   const impactControls = useAnimation();
   const impactTriggered = useRef(false);
   const prefersReduced = useReducedMotion();
-  const { openBookingModal } = useBookingStore();
+  const { openBookingModal, openEnquireModal } = useBookingStore();
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -165,9 +163,14 @@ export function CinematicHero({ onExplore }: CinematicHeroProps) {
         <p className="text-display-md font-bold text-center text-text-primary max-w-sm mb-4">
           Move With Confidence. Train With the Best.
         </p>
-        <ClayButton variant="primary" size="lg" onClick={() => openBookingModal()}>
-          Book Free Trial
-        </ClayButton>
+        <div className="flex flex-col sm:flex-row gap-3 w-full max-w-md justify-center">
+          <ClayButton variant="outline" size="lg" onClick={() => openEnquireModal()}>
+            Enquire Now
+          </ClayButton>
+          <ClayButton variant="primary" size="lg" onClick={() => openBookingModal()}>
+            Book Free Trial
+          </ClayButton>
+        </div>
       </section>
     );
   }
@@ -272,44 +275,69 @@ export function CinematicHero({ onExplore }: CinematicHeroProps) {
               <br />
               Confidence.
             </h1>
-            <p className="text-heading-sm font-semibold text-text-secondary mb-8 text-center">
+            <p className="text-heading-sm font-semibold text-text-secondary mb-10 text-center">
               Train With the Best.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-3 w-full max-w-xs">
+            {/* ── PRIMARY CTA: EXPLORE WEBSITE ── */}
+            <motion.button
+              onClick={() => {
+                useBookingStore.getState().setPendingScrollId("courses");
+                if (onExplore) onExplore();
+              }}
+              className="group relative flex flex-col items-center gap-4 mb-12"
+              aria-label="Explore the rest of the website"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <div className="relative z-10 flex items-center gap-4 px-8 py-4 rounded-full bg-white/5 border border-white/10 backdrop-blur-xl group-hover:bg-white/10 group-hover:border-white/30 transition-all duration-300">
+                <span className="text-body font-medium tracking-[0.15em] text-text-primary uppercase">
+                  Explore Experience
+                </span>
+                <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-white/20 transition-colors">
+                  <ChevronDown className="w-4 h-4 text-white group-hover:translate-y-1 transition-transform" />
+                </div>
+              </div>
+              
+              {/* Subtle pulsing glow behind the button */}
+              <div className="absolute inset-0 bg-accent-light/20 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none -z-10" />
+            </motion.button>
+
+            {/* ── SECONDARY CTAS: ENQUIRE & BOOK ── */}
+            <div className="flex flex-col sm:flex-row gap-3 w-full max-w-sm justify-center mb-8">
+              <motion.button
+                onClick={() => openEnquireModal()}
+                className="flex-1 border border-white/10 text-text-secondary hover:text-white font-medium py-3 px-6 rounded-lg text-body-sm tracking-wide text-center bg-white/5 hover:bg-white/10 transition-colors"
+                whileTap={{ scale: 0.97 }}
+                aria-label="Send an enquiry about courses"
+              >
+                Send Enquiry
+              </motion.button>
               <motion.button
                 onClick={() => openBookingModal()}
-                className="flex-1 bg-cta-magenta text-white font-semibold py-4 px-6 rounded-lg shadow-magenta animate-cta-pulse text-body-sm tracking-wide"
+                className="flex-1 border border-cta-magenta/30 text-white font-medium py-3 px-6 rounded-lg text-body-sm tracking-wide bg-cta-magenta/10 hover:bg-cta-magenta/20 transition-colors"
                 whileTap={{ scale: 0.97 }}
-                whileHover={{ boxShadow: "0 0 40px rgba(225,29,72,0.60)" }}
                 aria-label="Book a free trial class"
               >
                 Book Free Trial
               </motion.button>
-              <motion.a
-                href="#courses"
-                onClick={(e) => {
-                  e.preventDefault();
-                  useBookingStore.getState().setPendingScrollId("courses");
-                  if (onExplore) onExplore();
-                }}
-                className="flex-1 border border-white/30 text-white font-semibold py-4 px-6 rounded-lg text-body-sm tracking-wide text-center"
-                whileTap={{ scale: 0.97 }}
-                whileHover={{ borderColor: "rgba(255,255,255,0.60)" }}
-                aria-label="Explore our dance courses"
-              >
-                Explore Courses
-              </motion.a>
             </div>
 
+            {/* ── SOCIAL PROOF ── */}
             <motion.div
-              className="mt-8 flex flex-col items-center justify-center gap-3 text-caption text-text-muted"
+              className="flex flex-col items-center justify-center gap-3 text-caption text-text-muted"
               style={{ opacity: socialProofOpacity }}
             >
               <div className="flex flex-wrap justify-center gap-4">
-                <span>⭐ 4.9 Google Reviews</span>
-                <span className="hidden sm:inline">•</span>
-                <span>👥 200+ Students</span>
+                <span className="flex items-center gap-1.5">
+                  <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                  4.9 Google Reviews
+                </span>
+                <span className="hidden sm:inline text-text-muted">·</span>
+                <span className="flex items-center gap-1.5">
+                  <Users className="w-3.5 h-3.5 text-accent-light" />
+                  200+ Students
+                </span>
               </div>
               <a 
                 href="https://www.google.com/maps/search/Infinite+Dance+Centre+Yamuna+Vihar+Delhi" 
