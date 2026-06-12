@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Infinite Dance Centre 🕺✨
 
-## Getting Started
+A cinematic, high-performance web application for the **Infinite Dance Centre**. Built with modern web technologies to provide an immersive, premium user experience that converts visitors into students.
 
-First, run the development server:
+![Vercel](https://img.shields.io/badge/Deployed_on-Vercel-black?logo=vercel)
+![Next.js](https://img.shields.io/badge/Next.js-14-black?logo=next.js)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3-blue?logo=tailwind-css)
+![Framer Motion](https://img.shields.io/badge/Framer_Motion-purple?logo=framer)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🌟 Key Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 🎬 Immersive Hero Experience
+- **Scroll-Linked 3D Animations:** A fully custom, multi-layered 3D holographic dancer that rotates smoothly as the user scrolls down the page.
+- **Cinematic Parallax & Particle Effects:** Hardware-accelerated floating particles, shattering glass walls, and neon impact rings tied to scroll progress.
+- **Glassmorphism UI:** Premium frosted glass textures, deep gradients, and glowing accents.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 📅 Advanced Booking Flow
+- **Multi-Step Modal:** A seamless, interactive booking sheet guiding users through Course Selection, Batch Timing, and Student Details.
+- **Mobile-Optimized:** Built as a bottom-sheet on mobile devices with smooth native-feeling snap-scrolling and sticky buttons.
+- **WhatsApp Integration:** Automatically generates a formatted WhatsApp message to finalize bookings directly with the studio manager.
+- **Zustand State Management:** Lightweight, persistent local state handling the entire booking flow seamlessly.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### 🔐 Admin Dashboard
+- **PIN-Protected Access:** A hidden admin portal secured via an interactive PIN gate.
+- **Lead & Student Management:** View and manage incoming trial requests, lead statuses, and enrolled student rosters.
+- **Batch Manager:** Organize class schedules, timings, and instructor assignments in an intuitive glass-card interface.
 
-## Learn More
+### 📱 Responsive & Performant
+- **Mobile-First Design:** Fully responsive layout with horizontal swipeable review carousels and touch-friendly targets.
+- **High-FPS Animations:** Carefully optimized SVG filters and `will-change` CSS hardware acceleration ensuring 60fps animations even on mobile devices.
 
-To learn more about Next.js, take a look at the following resources:
+## 🛠️ Tech Stack
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Framework:** [Next.js 14](https://nextjs.org/) (App Router)
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+- **Animations:** [Framer Motion](https://www.framer.com/motion/)
+- **State Management:** [Zustand](https://github.com/pmndrs/zustand)
+- **Icons:** [Lucide React](https://lucide.dev/)
+- **Deployment:** [Vercel](https://vercel.com/)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## 🚀 Getting Started
 
-## Deploy on Vercel
+### Prerequisites
+Make sure you have Node.js (v18+) installed.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Installation
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/preetbansal99/infinitedancecentre.git
+   cd infinitedancecentre
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+4. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## 🌐 Deployment
+The project is configured for seamless deployment on Vercel. Connect your GitHub repository to your Vercel account to enable automatic deployments on every push to the `main` branch.
+
+---
+*Designed & built for **Infinite Dance Centre**.*
