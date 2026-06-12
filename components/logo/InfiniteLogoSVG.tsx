@@ -4,11 +4,11 @@ import { cn } from "@/lib/cn";
 type LogoSize = "sm" | "md" | "lg" | "hero" | "header";
 
 const SIZE_MAP: Record<LogoSize, { width: number; height: number; wordmarkSize: number }> = {
-  header: { width: 120, height:  52, wordmarkSize: 9  },
-  sm:     { width: 160, height:  72, wordmarkSize: 11 },
-  md:     { width: 240, height: 108, wordmarkSize: 14 },
-  lg:     { width: 340, height: 152, wordmarkSize: 18 },
-  hero:   { width: 480, height: 216, wordmarkSize: 24 },
+  header: { width: 120, height: 52, wordmarkSize: 9 },
+  sm: { width: 160, height: 72, wordmarkSize: 11 },
+  md: { width: 240, height: 108, wordmarkSize: 14 },
+  lg: { width: 340, height: 152, wordmarkSize: 18 },
+  hero: { width: 30, height: 216, wordmarkSize: 24 },
 };
 
 interface InfiniteLogoSVGProps {
@@ -40,18 +40,18 @@ export function InfiniteLogoSVG({
     >
       <defs>
         <linearGradient id="leftLobeGrad" x1="0%" y1="30%" x2="100%" y2="70%">
-          <stop offset="0%"   stopColor="#60A5FA" stopOpacity="1" />
-          <stop offset="40%"  stopColor="#3B82F6" stopOpacity="1" />
+          <stop offset="0%" stopColor="#60A5FA" stopOpacity="1" />
+          <stop offset="40%" stopColor="#3B82F6" stopOpacity="1" />
           <stop offset="100%" stopColor="#2563EB" stopOpacity="1" />
         </linearGradient>
         <linearGradient id="rightLobeGrad" x1="0%" y1="30%" x2="100%" y2="70%">
-          <stop offset="0%"   stopColor="#8B5CF6" stopOpacity="1" />
-          <stop offset="60%"  stopColor="#A855F7" stopOpacity="1" />
+          <stop offset="0%" stopColor="#8B5CF6" stopOpacity="1" />
+          <stop offset="60%" stopColor="#A855F7" stopOpacity="1" />
           <stop offset="100%" stopColor="#C084FC" stopOpacity="1" />
         </linearGradient>
         <linearGradient id="dancerLogoGrad" x1="20%" y1="0%" x2="80%" y2="100%">
-          <stop offset="0%"   stopColor="#DBEAFE" />
-          <stop offset="50%"  stopColor="#C4B5FD" />
+          <stop offset="0%" stopColor="#DBEAFE" />
+          <stop offset="50%" stopColor="#C4B5FD" />
           <stop offset="100%" stopColor="#E9D5FF" />
         </linearGradient>
         <filter id="neonGlow" x="-25%" y="-25%" width="150%" height="150%">

@@ -9,7 +9,7 @@ import {
   useAnimation,
   MotionValue,
 } from "framer-motion";
-import { InfiniteLogoSVG } from "@/components/logo/InfiniteLogoSVG";
+import { Logo } from "@/components/logo/Logo";
 import { DancerSVG } from "@/components/hero/DancerSVG";
 import { GlassWall } from "@/components/hero/GlassWall";
 import { ParticleBurst } from "@/components/hero/ParticleBurst";
@@ -118,6 +118,9 @@ export function CinematicHero({ onExplore }: CinematicHeroProps) {
   const ctaContentOpacity = useTransform(smoothProgress, [0.72, 0.80], [0, 1]);
   const ctaContentY = useTransform(smoothProgress, [0.72, 0.80], [24, 0]);
   const socialProofOpacity = useTransform(smoothProgress, [0.78, 0.84], [0, 1]);
+  
+  // Only allow clicks when the panel is fully visible
+  const ctaPointerEvents = useTransform(smoothProgress, [0.79, 0.80], ["none", "auto"]);
 
   // ── PHASE 5 transforms (removed to prevent fade-out)
   // const fadeToSite = useTransform(smoothProgress, [0.88, 1.0], [0, 1]);
@@ -156,7 +159,7 @@ export function CinematicHero({ onExplore }: CinematicHeroProps) {
   if (prefersReduced) {
     return (
       <section className="relative min-h-screen bg-bg flex flex-col items-center justify-center px-6 py-24">
-        <InfiniteLogoSVG size="lg" className="mb-8" />
+        <Logo size="lg" className="mb-8" />
         <p className="text-text-secondary text-body text-center mb-10 max-w-xs">
           Dance. Express. Be Infinite.
         </p>
@@ -165,7 +168,7 @@ export function CinematicHero({ onExplore }: CinematicHeroProps) {
         </p>
         <div className="flex flex-col sm:flex-row gap-3 w-full max-w-md justify-center">
           <ClayButton variant="outline" size="lg" onClick={() => openEnquireModal()}>
-            Enquire Now
+            Send Enquiry
           </ClayButton>
           <ClayButton variant="primary" size="lg" onClick={() => openBookingModal()}>
             Book Free Trial
@@ -201,7 +204,7 @@ export function CinematicHero({ onExplore }: CinematicHeroProps) {
             className="absolute inset-0 flex flex-col items-center justify-center z-10 pointer-events-none"
             style={{ opacity: logoOpacity, scale: logoScale, x: logoX, y: logoY }}
           >
-            <InfiniteLogoSVG size="hero" className="filter-neon-combo animate-neon-pulse" />
+            <Logo size="hero" className="filter-neon-combo animate-neon-pulse" />
             <motion.p
               className="mt-6 text-body-sm tracking-[0.25em] text-text-secondary uppercase font-medium"
               style={{ opacity: taglineOpacity }}
@@ -265,91 +268,92 @@ export function CinematicHero({ onExplore }: CinematicHeroProps) {
           {/* PHASE 4: CTA Panel Content */}
           <motion.div
             className="absolute right-0 top-0 h-full w-full z-30 flex flex-col items-center justify-center px-8 md:px-12"
-            style={{ opacity: ctaContentOpacity, y: ctaContentY }}
+            style={{ opacity: ctaContentOpacity, y: ctaContentY, pointerEvents: ctaPointerEvents as any }}
           >
-            <p className="text-xs tracking-[0.3em] text-accent-light uppercase font-semibold mb-3">
-              INFINITE DANCE CENTRE
-            </p>
-            <h1 className="text-display-md md:text-display-lg font-extrabold text-text-primary leading-tight mb-3 text-center">
-              Move With
-              <br />
-              Confidence.
-            </h1>
-            <p className="text-heading-sm font-semibold text-text-secondary mb-10 text-center">
-              Train With the Best.
-            </p>
+            {/* Glowing Orbs for Visual Energy */}
+            <div className="absolute top-[10%] left-[15%] w-96 h-96 bg-cyan-500/5 blur-[120px] rounded-full pointer-events-none -z-10" />
+            <div className="absolute bottom-[20%] right-[15%] w-96 h-96 bg-fuchsia-500/5 blur-[120px] rounded-full pointer-events-none -z-10" />
 
-            {/* ── PRIMARY CTA: EXPLORE WEBSITE ── */}
+            <div className="flex flex-col items-center justify-center flex-1 max-w-3xl">
+              <p className="text-sm tracking-[0.3em] text-cyan-400 uppercase font-semibold mb-4 drop-shadow-md">
+                INFINITE DANCE CENTRE
+              </p>
+              <h1 className="text-display-md md:text-display-lg font-extrabold text-white leading-tight mb-4 text-center drop-shadow-lg">
+                Move With
+                <br />
+                Confidence.
+              </h1>
+              <p className="text-heading font-semibold text-gray-200 mb-12 text-center drop-shadow-md">
+                Train With the Best.
+              </p>
+
+              {/* ── SECONDARY CTAS: ENQUIRE & BOOK ── */}
+              <div className="flex flex-col sm:flex-row gap-4 w-full justify-center mb-10 pointer-events-auto">
+                <motion.button
+                  onClick={() => openEnquireModal()}
+                  className="flex-1 sm:flex-none sm:w-48 border border-white/20 text-gray-200 hover:text-white font-semibold py-4 px-6 rounded-xl text-body tracking-wide text-center bg-white/10 hover:bg-white/15 transition-all shadow-lg"
+                  whileTap={{ scale: 0.97 }}
+                  aria-label="Send an enquiry about courses"
+                >
+                  Send Enquiry
+                </motion.button>
+                <motion.button
+                  onClick={() => openBookingModal()}
+                  className="flex-1 sm:flex-none sm:w-64 bg-gradient-to-r from-cyan-500 to-fuchsia-500 hover:from-cyan-400 hover:to-fuchsia-400 text-white font-bold py-4 px-8 rounded-xl text-body tracking-wide shadow-[0_0_15px_rgba(6,182,212,0.2)] transition-all"
+                  whileTap={{ scale: 0.97 }}
+                  aria-label="Book a free trial class"
+                >
+                  Book Free Trial
+                </motion.button>
+              </div>
+
+              {/* ── SOCIAL PROOF ── */}
+              <div className="flex flex-col items-center justify-center gap-4 pointer-events-auto">
+                <div className="flex flex-wrap justify-center gap-6">
+                  <span className="flex items-center gap-2 text-body font-medium text-white drop-shadow-sm">
+                    <Star className="w-5 h-5 fill-amber-400 text-amber-400" />
+                    4.9 Google Reviews
+                  </span>
+                  <span className="hidden sm:inline text-white/40">|</span>
+                  <span className="flex items-center gap-2 text-body font-medium text-white drop-shadow-sm">
+                    <Users className="w-5 h-5 text-cyan-400" />
+                    200+ Students
+                  </span>
+                </div>
+                <a 
+                  href="https://www.google.com/maps/search/Infinite+Dance+Centre+Yamuna+Vihar+Delhi" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-cyan-300 bg-cyan-900/30 px-5 py-2.5 rounded-full border border-cyan-500/30 shadow-[0_0_15px_rgba(6,182,212,0.15)] hover:bg-cyan-900/50 hover:scale-105 transition-all cursor-pointer mt-2"
+                  aria-label="Open location in Google Maps"
+                >
+                  <MapPin className="w-4 h-4" />
+                  <span className="font-semibold tracking-wide hover:underline underline-offset-2">C-3/161, 162, Block C, Yamuna Vihar, Delhi</span>
+                </a>
+              </div>
+            </div>
+
+            {/* ── DEMOTED CTA: EXPLORE WEBSITE (Bottom anchored) ── */}
             <motion.button
               onClick={() => {
                 useBookingStore.getState().setPendingScrollId("courses");
                 if (onExplore) onExplore();
               }}
-              className="group relative flex flex-col items-center gap-4 mb-12"
+              className="absolute bottom-8 left-1/2 -translate-x-1/2 group flex items-center gap-3 text-white transition-all pointer-events-auto bg-white/5 hover:bg-white/10 border border-white/10 hover:border-cyan-500/30 rounded-full px-8 py-3.5 backdrop-blur-md shadow-lg"
               aria-label="Explore the rest of the website"
-              whileHover={{ scale: 1.02 }}
+              whileHover={{ y: -2 }}
               whileTap={{ scale: 0.98 }}
             >
-              <div className="relative z-10 flex items-center gap-4 px-8 py-4 rounded-full bg-white/5 border border-white/10 backdrop-blur-xl group-hover:bg-white/10 group-hover:border-white/30 transition-all duration-300">
-                <span className="text-body font-medium tracking-[0.15em] text-text-primary uppercase">
-                  Explore Experience
-                </span>
-                <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-white/20 transition-colors">
-                  <ChevronDown className="w-4 h-4 text-white group-hover:translate-y-1 transition-transform" />
-                </div>
-              </div>
-              
-              {/* Subtle pulsing glow behind the button */}
-              <div className="absolute inset-0 bg-accent-light/20 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none -z-10" />
+              <span className="text-sm font-semibold tracking-[0.2em] uppercase">
+                Explore IDC
+              </span>
+              <motion.div
+                animate={{ y: [0, 4, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <ChevronDown className="w-5 h-5 text-cyan-400" />
+              </motion.div>
             </motion.button>
-
-            {/* ── SECONDARY CTAS: ENQUIRE & BOOK ── */}
-            <div className="flex flex-col sm:flex-row gap-3 w-full max-w-sm justify-center mb-8">
-              <motion.button
-                onClick={() => openEnquireModal()}
-                className="flex-1 border border-white/10 text-text-secondary hover:text-white font-medium py-3 px-6 rounded-lg text-body-sm tracking-wide text-center bg-white/5 hover:bg-white/10 transition-colors"
-                whileTap={{ scale: 0.97 }}
-                aria-label="Send an enquiry about courses"
-              >
-                Send Enquiry
-              </motion.button>
-              <motion.button
-                onClick={() => openBookingModal()}
-                className="flex-1 border border-cta-magenta/30 text-white font-medium py-3 px-6 rounded-lg text-body-sm tracking-wide bg-cta-magenta/10 hover:bg-cta-magenta/20 transition-colors"
-                whileTap={{ scale: 0.97 }}
-                aria-label="Book a free trial class"
-              >
-                Book Free Trial
-              </motion.button>
-            </div>
-
-            {/* ── SOCIAL PROOF ── */}
-            <motion.div
-              className="flex flex-col items-center justify-center gap-3 text-caption text-text-muted"
-              style={{ opacity: socialProofOpacity }}
-            >
-              <div className="flex flex-wrap justify-center gap-4">
-                <span className="flex items-center gap-1.5">
-                  <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
-                  4.9 Google Reviews
-                </span>
-                <span className="hidden sm:inline text-text-muted">·</span>
-                <span className="flex items-center gap-1.5">
-                  <Users className="w-3.5 h-3.5 text-accent-light" />
-                  200+ Students
-                </span>
-              </div>
-              <a 
-                href="https://www.google.com/maps/search/Infinite+Dance+Centre+Yamuna+Vihar+Delhi" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 text-accent-light bg-accent-light/10 px-4 py-1.5 rounded-full border border-accent-light/20 shadow-[0_0_10px_rgba(139,92,246,0.2)] hover:bg-accent-light/20 hover:scale-105 transition-all cursor-pointer"
-                aria-label="Open location in Google Maps"
-              >
-                <MapPin className="w-4 h-4" />
-                <span className="font-medium tracking-wide hover:underline underline-offset-2">C-3/161, 162, Block C, Yamuna Vihar, Delhi</span>
-              </a>
-            </motion.div>
           </motion.div>
         </motion.div>
       </div>

@@ -3,6 +3,7 @@ export interface Student {
   fullName: string;
   enrolledDate: string;
   feeStatus: "Paid" | "Pending" | "Overdue";
+  monthlyFee?: number;
   course: string;
   batchId: string;
   timings: string;

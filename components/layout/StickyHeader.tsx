@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { InfiniteLogoSVG } from "@/components/logo/InfiniteLogoSVG";
+import { Logo } from "@/components/logo/Logo";
 import { useBookingStore } from "@/hooks/useBookingStore";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
@@ -55,7 +55,7 @@ export function StickyHeader() {
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
           >
-            <InfiniteLogoSVG size="header" showWordmark={false} />
+            <Logo size="header" />
           </Link>
 
           {/* Desktop Nav */}

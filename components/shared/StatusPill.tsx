@@ -3,17 +3,17 @@ import { cn } from "@/lib/cn";
 type Status = "Paid" | "Pending" | "Overdue" | "New" | "Contacted" | "Joined" | "Declined" | "Active" | "Filling" | "Full" | "Inactive";
 
 const STATUS_STYLES: Record<Status, string> = {
-  Paid:       "bg-success/15 text-success border border-success/30",
-  Pending:    "bg-warning/15 text-warning border border-warning/30",
-  Overdue:    "bg-error/15 text-error border border-error/30 animate-overdue-pulse",
-  New:        "bg-cta-magenta/15 text-cta-magenta border border-cta-magenta/30",
-  Contacted:  "bg-accent-blue/15 text-accent-blue border border-accent-blue/30",
-  Joined:     "bg-success/15 text-success border border-success/30",
-  Declined:   "bg-text-muted/15 text-text-muted border border-text-muted/20",
-  Active:     "bg-success/10 text-success border border-success/20",
-  Filling:    "bg-warning/10 text-warning border border-warning/20",
-  Full:       "bg-error/10 text-error border border-error/20",
-  Inactive:   "bg-text-muted/10 text-text-muted border border-text-muted/15",
+  Paid:       "bg-[#141413] text-[#FAF9F6] border border-[#141413]",
+  Pending:    "bg-[#F59E0B] text-[#141413] border border-[#F59E0B]",
+  Overdue:    "bg-[#DC2626] text-[#FAF9F6] border border-[#DC2626]",
+  New:        "bg-[#2563EB] text-[#FAF9F6] border border-[#2563EB]",
+  Contacted:  "bg-[#141413] text-[#FAF9F6] border border-[#141413]",
+  Joined:     "bg-[#141413] text-[#FAF9F6] border border-[#141413]",
+  Declined:   "bg-[#FFFFFF] text-[#4B5563] border border-[#4B5563]",
+  Active:     "bg-[#141413] text-[#FAF9F6] border border-[#141413]",
+  Filling:    "bg-[#F59E0B] text-[#141413] border border-[#F59E0B]",
+  Full:       "bg-[#DC2626] text-[#FAF9F6] border border-[#DC2626]",
+  Inactive:   "bg-[#FFFFFF] text-[#4B5563] border border-[#4B5563]",
 };
 
 interface StatusPillProps {

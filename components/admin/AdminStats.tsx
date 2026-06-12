@@ -14,21 +14,25 @@ export function AdminStats() {
     : 0;
 
   const stats = [
-    { label: "Total Students",    value: totalStudents, icon: Users,         color: "text-accent-blue",  bg: "bg-accent-blue/10" },
-    { label: "Overdue Fees",      value: overdueCount,  icon: AlertTriangle, color: "text-error",        bg: "bg-error/10" },
-    { label: "New Leads",         value: newLeadsCount,  icon: UserCheck,     color: "text-cta-magenta",  bg: "bg-cta-magenta/10" },
-    { label: "Avg. Occupancy",    value: `${avgOccupancy}%`, icon: TrendingUp, color: "text-success",     bg: "bg-success/10" },
+    { label: "Total Students",    value: totalStudents, icon: Users,         color: "text-cyan-400",  bg: "bg-cyan-400/10" },
+    { label: "Overdue Fees",      value: overdueCount,  icon: AlertTriangle, color: "text-red-400",  bg: "bg-red-400/10" },
+    { label: "New Leads",         value: newLeadsCount,  icon: UserCheck,     color: "text-fuchsia-400",  bg: "bg-fuchsia-400/10" },
+    { label: "Avg. Occupancy",    value: `${avgOccupancy}%`, icon: TrendingUp, color: "text-green-400", bg: "bg-green-400/10" },
   ];
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
       {stats.map((stat) => (
-        <div key={stat.label} className="bg-surface-el border border-white/5 rounded-2xl p-5 text-center transition-all hover:bg-white/[0.02]">
-          <div className={`w-10 h-10 rounded-full ${stat.bg} flex items-center justify-center mx-auto mb-3`}>
-            <stat.icon className={`w-5 h-5 ${stat.color}`} />
+        <div key={stat.label} className="bg-surface border border-white/5 rounded-2xl p-6 transition-all hover:bg-surface-light group relative overflow-hidden">
+          <div className="flex items-center gap-4 mb-4 relative z-10">
+            <div className={`w-10 h-10 rounded-full ${stat.bg} flex items-center justify-center group-hover:scale-110 transition-transform`}>
+              <stat.icon className={`w-5 h-5 ${stat.color}`} />
+            </div>
+            <p className="text-xs text-text-secondary uppercase tracking-widest font-sans font-medium">{stat.label}</p>
           </div>
-          <p className="text-heading font-bold text-text-primary tracking-tight">{stat.value}</p>
-          <p className="text-caption text-text-muted mt-1 uppercase tracking-wider">{stat.label}</p>
+          <p className="text-3xl font-bold text-white tracking-tight font-sans pl-1 relative z-10">{stat.value}</p>
+          
+          <div className={`absolute -right-4 -bottom-4 w-24 h-24 ${stat.bg} opacity-5 rounded-full blur-2xl group-hover:opacity-20 transition-opacity pointer-events-none`} />
         </div>
       ))}
     </div>

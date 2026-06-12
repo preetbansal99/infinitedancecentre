@@ -4,28 +4,15 @@ import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, CheckCircle2, MessageCircle, Copy } from "lucide-react";
 import { useBookingStore } from "@/hooks/useBookingStore";
-import { InfiniteLogoSVG } from "@/components/logo/InfiniteLogoSVG";
+import { Logo } from "@/components/logo/Logo";
 import { ClayButton } from "@/components/shared/ClayButton";
 import { buildEnquiryWhatsAppURL, copyEnquiryMessageToClipboard } from "@/lib/whatsapp";
 import { AnimatedCheckmark } from "@/components/shared/AnimatedCheckmark";
 import type { Lead } from "@/types";
 
-const COURSES = [
-  "Dance Classes",
-  "Zumba",
-  "Kids Dance Classes",
-  "Weight Loss Training",
-  "Wedding Choreography",
-  "Hip hop",
-  "Lyrical/contemporary dance",
-  "Beginner's classes",
-  "Intermediate classes",
-  "Advanced classes",
-  "Event Choreography",
-  "Dance Performances",
-  "Choreography classes",
-  "Private lessons"
-];
+import { MOCK_COURSES } from "@/data/mockData";
+
+const COURSES = MOCK_COURSES.map(c => c.name);
 
 export function EnquireSheet() {
   const { isEnquireOpen, closeEnquireModal, addLead, showToast } = useBookingStore();
@@ -149,7 +136,7 @@ export function EnquireSheet() {
             className="w-full max-w-md bg-surface rounded-none md:rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/10 h-full md:h-auto flex flex-col relative"
           >
             <div className="flex items-center justify-between p-6 border-b border-white/5 relative z-10">
-              <InfiniteLogoSVG size="sm" showWordmark={false} />
+              <Logo size="sm" />
               <button
                 onClick={handleClose}
                 className="w-10 h-10 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 text-text-secondary hover:text-white transition-colors"

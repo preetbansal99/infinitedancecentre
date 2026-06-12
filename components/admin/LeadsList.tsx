@@ -5,7 +5,6 @@ import { useBookingStore } from "@/hooks/useBookingStore";
 import { StatusPill } from "@/components/shared/StatusPill";
 import { DetailDrawer } from "@/components/shared/DetailDrawer";
 import { EmptyState } from "@/components/shared/EmptyState";
-import { ClayButton } from "@/components/shared/ClayButton";
 import { relativeTime } from "@/lib/formatters";
 import { Search, UserPlus, MessageCircle, Phone, StickyNote, ChevronRight, Download } from "lucide-react";
 import type { Lead } from "@/types";
@@ -65,19 +64,19 @@ export function LeadsList() {
       <div className="mb-6">
         <div className="flex gap-2 mb-4">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" />
             <input
               type="search"
               placeholder="Search leads..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full bg-surface-el border border-white/10 rounded-lg pl-10 pr-4 py-2.5 text-body-sm text-text-primary focus:border-accent-purple/50 focus:outline-none"
+              className="w-full bg-black/50 border border-white/10 rounded-full pl-11 pr-4 py-2.5 text-sm text-white focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-colors placeholder:text-text-muted outline-none"
             />
           </div>
-          <ClayButton variant="outline" onClick={exportToCSV}>
-            <Download className="w-4 h-4" />
+          <button onClick={exportToCSV} className="flex items-center gap-2 px-5 py-2.5 bg-surface hover:bg-surface-light border border-white/10 rounded-full text-white text-sm font-medium transition-colors shadow-lg">
+            <Download className="w-4 h-4 text-cyan-400" />
             <span className="hidden sm:inline">Export</span>
-          </ClayButton>
+          </button>
         </div>
 
         <div className="flex gap-2 flex-wrap">
@@ -85,16 +84,16 @@ export function LeadsList() {
             <button
               key={s}
               onClick={() => setFilterStatus(s)}
-              className={`px-4 py-1.5 rounded-full text-caption font-semibold transition-all ${
+              className={`px-4 py-1.5 text-xs font-semibold uppercase tracking-wider transition-all border rounded-full ${
                 filterStatus === s
-                  ? "bg-white text-bg"
-                  : "bg-surface-el border border-white/5 text-text-muted hover:text-white hover:bg-white/5"
+                  ? "bg-cyan-500/20 text-cyan-400 border-cyan-500/50"
+                  : "bg-surface border-white/10 text-text-secondary hover:text-white hover:bg-white/5"
               }`}
             >
               {s}
               {s !== "All" && (
-                <span className="ml-1 text-caption opacity-60">
-                  ({leads.filter((l) => l.status === s).length})
+                <span className="ml-1.5 px-1.5 py-0.5 rounded-full bg-black/30 text-[10px] opacity-80">
+                  {leads.filter((l) => l.status === s).length}
                 </span>
               )}
             </button>
@@ -109,8 +108,8 @@ export function LeadsList() {
           {filtered.map((lead) => (
             <div
               key={lead.id}
-              className={`bg-surface-el border rounded-xl p-4 cursor-pointer hover:bg-white/[0.02] transition-colors ${
-                lead.status === "New" ? "border-cta-magenta/30 shadow-[0_0_15px_rgba(225,29,72,0.1)]" : "border-white/5"
+              className={`bg-surface border p-5 cursor-pointer hover:bg-surface-light transition-all rounded-2xl shadow-sm ${
+                lead.status === "New" ? "border-cyan-500/30" : "border-white/10"
               }`}
               onClick={() => {
                 setSelectedLead(lead);
@@ -118,22 +117,20 @@ export function LeadsList() {
               }}
             >
               <div className="flex items-center justify-between mb-2">
-                <div className="flex items-center gap-2">
-                  <p className="text-body-sm font-semibold text-text-primary">{lead.fullName}</p>
+                <div className="flex items-center gap-3">
+                  <p className="text-sm font-bold text-white tracking-wide">{lead.fullName}</p>
                   <StatusPill status={lead.status} />
                 </div>
                 <ChevronRight className="w-4 h-4 text-text-muted" />
               </div>
-              <div className="flex flex-wrap gap-3 text-caption text-text-muted">
-                <span>{lead.course}</span>
-                <span>•</span>
-                <span>{lead.type}{lead.age ? `, ${lead.age}yrs` : ""}</span>
-                <span>•</span>
-                <span>{relativeTime(lead.submittedAt)}</span>
+              <div className="flex flex-wrap gap-3 text-xs text-text-secondary mt-1 font-mono">
+                <span className="bg-white/5 px-2 py-1 rounded-md">{lead.course}</span>
+                <span className="bg-white/5 px-2 py-1 rounded-md">{lead.type}{lead.age ? `, ${lead.age}yrs` : ""}</span>
+                <span className="px-2 py-1">{relativeTime(lead.submittedAt)}</span>
               </div>
               {lead.note && (
-                <p className="text-caption text-text-secondary mt-2 truncate">
-                  📝 {lead.note}
+                <p className="text-sm text-text-muted mt-3 border-l-2 border-cyan-500/50 pl-3">
+                  {lead.note}
                 </p>
               )}
             </div>
@@ -148,86 +145,103 @@ export function LeadsList() {
         title="Lead Details"
       >
         {selectedLead && (
-          <div className="space-y-5">
+          <div className="space-y-6">
             <div>
-              <p className="text-heading font-bold text-text-primary">{selectedLead.fullName}</p>
-              <div className="mt-2">
+              <p className="text-2xl font-bold text-white tracking-wide">{selectedLead.fullName}</p>
+              <div className="mt-3">
                 <StatusPill status={selectedLead.status} />
               </div>
             </div>
 
-            <div className="space-y-3">
-              <div className="flex items-center gap-2 text-body-sm text-text-secondary">
-                <Phone className="w-4 h-4 text-accent-blue" />
-                <span>{selectedLead.phone}</span>
+            <div className="space-y-4 font-mono text-sm border-t border-b border-white/10 py-5">
+              <div className="flex items-center gap-3 text-white bg-white/5 p-3 rounded-xl border border-white/10">
+                <div className="w-8 h-8 rounded-full bg-cyan-500/20 flex items-center justify-center">
+                  <Phone className="w-4 h-4 text-cyan-400" />
+                </div>
+                <span className="font-semibold tracking-wider">{selectedLead.phone}</span>
               </div>
-              <p className="text-body-sm text-text-secondary">
-                <strong className="text-text-primary">Course:</strong> {selectedLead.course}
-              </p>
-              <p className="text-body-sm text-text-secondary">
-                <strong className="text-text-primary">Batch:</strong> {selectedLead.batch}
-              </p>
-              <p className="text-body-sm text-text-secondary">
-                <strong className="text-text-primary">Type:</strong> {selectedLead.type}
-                {selectedLead.age ? ` — Age ${selectedLead.age}` : ""}
-              </p>
+              
+              <div className="grid grid-cols-2 gap-4">
+                <div className="bg-surface p-3 rounded-xl border border-white/5">
+                  <p className="text-[10px] text-text-muted uppercase tracking-widest mb-1">Course</p>
+                  <p className="text-white font-medium">{selectedLead.course}</p>
+                </div>
+                <div className="bg-surface p-3 rounded-xl border border-white/5">
+                  <p className="text-[10px] text-text-muted uppercase tracking-widest mb-1">Batch</p>
+                  <p className="text-white font-medium">{selectedLead.batch}</p>
+                </div>
+                <div className="bg-surface p-3 rounded-xl border border-white/5">
+                  <p className="text-[10px] text-text-muted uppercase tracking-widest mb-1">Type</p>
+                  <p className="text-white font-medium">{selectedLead.type}</p>
+                </div>
+                {selectedLead.age && (
+                  <div className="bg-surface p-3 rounded-xl border border-white/5">
+                    <p className="text-[10px] text-text-muted uppercase tracking-widest mb-1">Age</p>
+                    <p className="text-white font-medium">{selectedLead.age} yrs</p>
+                  </div>
+                )}
+              </div>
+
               {selectedLead.note && (
-                <p className="text-body-sm text-text-secondary">
-                  <strong className="text-text-primary">Student Note:</strong> {selectedLead.note}
-                </p>
+                <div className="bg-surface p-4 rounded-xl border border-white/5">
+                  <p className="text-[10px] text-text-muted uppercase tracking-widest mb-2">Student Note</p>
+                  <p className="text-text-secondary leading-relaxed font-sans">{selectedLead.note}</p>
+                </div>
               )}
-              <p className="text-caption text-text-muted">
+              
+              <p className="text-xs text-text-muted text-center pt-2">
                 Submitted: {relativeTime(selectedLead.submittedAt)}
               </p>
             </div>
 
-            {/* Status Actions */}
             <div>
-              <p className="text-caption text-text-muted mb-2">Update Status</p>
+              <p className="text-xs uppercase tracking-widest text-text-muted mb-3 font-bold">Update Status</p>
               <div className="flex flex-wrap gap-2">
                 {(["New", "Contacted", "Joined", "Declined"] as Lead["status"][]).map((s) => (
-                  <ClayButton
+                  <button
                     key={s}
-                    variant={selectedLead.status === s ? "primary" : "outline"}
-                    size="sm"
+                    className={`px-4 py-2 text-xs font-semibold rounded-full border transition-all ${
+                      selectedLead.status === s
+                        ? "bg-cyan-500 text-white border-cyan-500 shadow-[0_0_15px_rgba(6,182,212,0.3)]"
+                        : "bg-surface border-white/10 text-text-secondary hover:text-white hover:border-white/30"
+                    }`}
                     onClick={() => {
                       handleStatusChange(selectedLead.id, s);
                       setSelectedLead({ ...selectedLead, status: s });
                     }}
                   >
                     {s}
-                  </ClayButton>
+                  </button>
                 ))}
               </div>
             </div>
 
-            {/* Owner Note */}
             <div>
-              <div className="flex items-center gap-2 mb-2">
-                <StickyNote className="w-4 h-4 text-accent-light" />
-                <p className="text-caption text-text-muted">Owner Note</p>
-              </div>
+              <p className="text-xs uppercase tracking-widest text-text-muted mb-3 font-bold">Internal Note</p>
               <textarea
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
-                rows={3}
-                className="w-full bg-surface-el border border-white/10 rounded-lg px-3 py-2 text-body-sm text-text-primary focus:border-accent-purple/50 focus:outline-none resize-none"
-                placeholder="Add a private note..."
+                className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 min-h-[100px] resize-none mb-3"
+                placeholder="Add private notes about this lead..."
               />
-              <ClayButton variant="outline" size="sm" onClick={handleSaveNote} className="mt-2">
+              <button
+                onClick={handleSaveNote}
+                className="w-full py-3 bg-surface hover:bg-surface-light text-white text-sm font-medium border border-white/10 rounded-xl transition-all flex items-center justify-center gap-2"
+              >
+                <StickyNote className="w-4 h-4" />
                 Save Note
-              </ClayButton>
+              </button>
             </div>
 
-            {/* WhatsApp */}
-            <ClayButton
-              variant="whatsapp"
-              fullWidth
-              onClick={() => handleWhatsApp(selectedLead.phone)}
-            >
-              <MessageCircle className="w-5 h-5" />
-              Message on WhatsApp
-            </ClayButton>
+            <div className="pt-2">
+              <button
+                onClick={() => handleWhatsApp(selectedLead.phone)}
+                className="w-full py-4 bg-[#25D366]/10 hover:bg-[#25D366]/20 border border-[#25D366]/30 text-[#25D366] text-sm font-bold tracking-wide rounded-xl transition-all flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(37,211,102,0.1)]"
+              >
+                <MessageCircle className="w-5 h-5" />
+                Message on WhatsApp
+              </button>
+            </div>
           </div>
         )}
       </DetailDrawer>

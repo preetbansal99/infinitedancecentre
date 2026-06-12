@@ -48,17 +48,17 @@ export function DetailDrawer({ open, onClose, title, children }: DetailDrawerPro
             aria-modal="true"
             aria-label={title}
             tabIndex={-1}
-            className="fixed right-0 top-0 bottom-0 z-drawer glass-strong w-full max-w-sm md:max-w-md flex flex-col overflow-hidden border-l border-white/[0.08]"
+            className="fixed right-0 top-0 bottom-0 z-drawer bg-[#0a0a0a] w-full max-w-sm md:max-w-md flex flex-col overflow-hidden border-l border-white/10 shadow-2xl"
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "spring", stiffness: 320, damping: 36 }}
           >
-            <div className="flex items-center justify-between px-5 py-4 border-b border-white/5 flex-shrink-0">
-              <h2 className="text-heading-sm font-semibold text-text-primary">{title}</h2>
+            <div className="flex items-center justify-between px-5 py-4 border-b border-white/10 flex-shrink-0">
+              <h2 className="text-lg font-bold text-white tracking-wide">{title}</h2>
               <button
                 onClick={onClose}
-                className="touch-target flex items-center justify-center text-text-muted hover:text-text-primary rounded-full"
+                className="touch-target flex items-center justify-center text-text-muted hover:text-white transition-colors rounded-full hover:bg-white/5 w-8 h-8"
                 aria-label="Close panel"
               >
                 <X className="w-5 h-5" />

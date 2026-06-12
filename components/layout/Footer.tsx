@@ -1,6 +1,6 @@
 "use client";
 
-import { InfiniteLogoSVG } from "@/components/logo/InfiniteLogoSVG";
+import { Logo } from "@/components/logo/Logo";
 import { MapPin, Phone, Clock, Instagram } from "lucide-react";
 
 export function Footer() {
@@ -10,7 +10,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           {/* Brand Column */}
           <div className="flex flex-col items-center md:items-start">
-            <InfiniteLogoSVG size="sm" className="mb-4" />
+            <Logo size="sm" className="mb-4" />
             <p className="text-caption text-text-muted text-center md:text-left max-w-xs">
               Professional dance and fitness training in the heart of Yamuna Vihar, Delhi.
             </p>
