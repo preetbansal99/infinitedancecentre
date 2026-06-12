@@ -22,7 +22,7 @@ const SIZE_MAP: Record<LogoSize, { width: number; height: number }> = {
   sm: { width: 180, height: 120 }, // 3:2 icon
   md: { width: 240, height: 160 }, // 3:2 icon
   lg: { width: 350, height: 350 }, // 1:1 full logo
-  hero: { width: 550, height: 550 }, // 1:1 full logo
+  hero: { width: 400, height: 550 }, // 1:1 full logo
 };
 
 export function Logo({

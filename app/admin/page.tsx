@@ -106,9 +106,14 @@ function AdminContent() {
         <div className="flex items-center gap-3">
           <span className="font-bold text-white tracking-wide">Admin Portal</span>
         </div>
-        <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="p-2 text-text-secondary hover:text-white transition-colors">
-          {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
+        <div className="flex items-center gap-2">
+          <Link href="/" className="p-2 text-text-secondary hover:text-white transition-colors flex items-center justify-center">
+            <ArrowLeft className="w-5 h-5" />
+          </Link>
+          <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="p-2 text-text-secondary hover:text-white transition-colors">
+            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
+        </div>
       </div>
 
       <AnimatePresence>
@@ -141,9 +146,15 @@ function AdminContent() {
           >
             {activeTab === "dashboard" && (
               <div>
-                <header className="mb-8">
-                  <h1 className="text-3xl font-bold text-white mb-2 font-serif">Dashboard</h1>
-                  <p className="text-base text-text-secondary">Welcome back. Here&apos;s the latest at Infinite Dance Centre.</p>
+                <header className="mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+                  <div>
+                    <h1 className="text-3xl font-bold text-white mb-2 font-serif">Dashboard</h1>
+                    <p className="text-base text-text-secondary">Welcome back. Here&apos;s the latest at Infinite Dance Centre.</p>
+                  </div>
+                  <Link href="/" className="hidden md:flex items-center gap-2 px-4 py-2 bg-surface hover:bg-surface-light border border-white/10 text-white rounded-xl text-sm font-medium transition-all shadow-sm w-fit">
+                    <ArrowLeft className="w-4 h-4" />
+                    Back to Site
+                  </Link>
                 </header>
                 
                 <AdminStats />
@@ -161,9 +172,15 @@ function AdminContent() {
 
             {activeTab === "leads" && (
               <div>
-                <header className="mb-8">
-                  <h1 className="text-3xl font-bold text-white mb-2 font-serif">Free Trial Management</h1>
-                  <p className="text-base text-text-secondary">Track, contact, and convert your free trial leads.</p>
+                <header className="mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+                  <div>
+                    <h1 className="text-3xl font-bold text-white mb-2 font-serif">Free Trial Management</h1>
+                    <p className="text-base text-text-secondary">Track, contact, and convert your free trial leads.</p>
+                  </div>
+                  <Link href="/" className="hidden md:flex items-center gap-2 px-4 py-2 bg-surface hover:bg-surface-light border border-white/10 text-white rounded-xl text-sm font-medium transition-all shadow-sm w-fit">
+                    <ArrowLeft className="w-4 h-4" />
+                    Back to Site
+                  </Link>
                 </header>
                 <LeadsList />
               </div>
@@ -171,9 +188,15 @@ function AdminContent() {
 
             {activeTab === "students" && (
               <div>
-                <header className="mb-8">
-                  <h1 className="text-3xl font-bold text-white mb-2 font-serif">Student Roster</h1>
-                  <p className="text-base text-text-secondary">Manage enrollments, update fee statuses, and view details.</p>
+                <header className="mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+                  <div>
+                    <h1 className="text-3xl font-bold text-white mb-2 font-serif">Student Roster</h1>
+                    <p className="text-base text-text-secondary">Manage enrollments, update fee statuses, and view details.</p>
+                  </div>
+                  <Link href="/" className="hidden md:flex items-center gap-2 px-4 py-2 bg-surface hover:bg-surface-light border border-white/10 text-white rounded-xl text-sm font-medium transition-all shadow-sm w-fit">
+                    <ArrowLeft className="w-4 h-4" />
+                    Back to Site
+                  </Link>
                 </header>
                 <StudentRoster />
               </div>
@@ -181,9 +204,15 @@ function AdminContent() {
 
             {activeTab === "batches" && (
               <div>
-                <header className="mb-8">
-                  <h1 className="text-3xl font-bold text-white mb-2 font-serif">Batch Manager</h1>
-                  <p className="text-base text-text-secondary">Create and monitor class schedules and capacities.</p>
+                <header className="mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+                  <div>
+                    <h1 className="text-3xl font-bold text-white mb-2 font-serif">Batch Manager</h1>
+                    <p className="text-base text-text-secondary">Create and monitor class schedules and capacities.</p>
+                  </div>
+                  <Link href="/" className="hidden md:flex items-center gap-2 px-4 py-2 bg-surface hover:bg-surface-light border border-white/10 text-white rounded-xl text-sm font-medium transition-all shadow-sm w-fit">
+                    <ArrowLeft className="w-4 h-4" />
+                    Back to Site
+                  </Link>
                 </header>
                 <BatchManager />
               </div>

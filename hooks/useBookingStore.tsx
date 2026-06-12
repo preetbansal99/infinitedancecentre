@@ -27,6 +27,7 @@ interface BookingStore {
   addLead: (lead: Lead) => void;
   updateLeadStatus: (id: string, status: Lead["status"]) => void;
   updateLeadNote: (id: string, note: string) => void;
+  updateLead: (id: string, updates: Partial<Lead>) => void;
 
   // ── Students ───────────────────────────────────────────
   students: Student[];
@@ -79,6 +80,10 @@ export const useBookingStore = create<BookingStore>((set, get) => ({
   updateLeadNote: (id, note) =>
     set((state) => ({
       leads: state.leads.map((l) => (l.id === id ? { ...l, ownerNote: note } : l)),
+    })),
+  updateLead: (id, updates) =>
+    set((state) => ({
+      leads: state.leads.map((l) => (l.id === id ? { ...l, ...updates } : l)),
     })),
 
   // Students — initialized from mockData
