@@ -2,54 +2,72 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X } from "lucide-react";
-import { StepIndicator } from "@/components/booking/StepIndicator";
-import { Step1CourseSelect } from "@/components/booking/Step1CourseSelect";
-import { Step2BatchSelect } from "@/components/booking/Step2BatchSelect";
-import { Step3StudentForm } from "@/components/booking/Step3StudentForm";
-import { Step4Confirm } from "@/components/booking/Step4Confirm";
-import { Step5WhatsApp } from "@/components/booking/Step5WhatsApp";
+import { X, UserCircle2, MessageCircle, Copy } from "lucide-react";
 import { useBookingStore } from "@/hooks/useBookingStore";
-import { InfiniteLogoSVG } from "@/components/logo/InfiniteLogoSVG";
-import type { BookingFormData, Lead } from "@/types";
+import { buildEnquiryWhatsAppURL, copyEnquiryMessageToClipboard } from "@/lib/whatsapp";
+import { AnimatedCheckmark } from "@/components/shared/AnimatedCheckmark";
+import type { Lead } from "@/types";
 
-const STEP_LABELS = ["Course", "Batch", "Details", "Confirm", "Done"];
-
-const initialFormData: BookingFormData = {
-  courseId: "",
-  courseName: "",
-  batchId: "",
-  batchLabel: "",
-  studentType: "Self",
-  age: "",
-  fullName: "",
-  phone: "",
-  note: "",
-};
+const COURSES = [
+  "Dance Classes",
+  "Women's Fitness Dance",
+  "Zumba",
+  "Kids Dance Classes",
+  "Weight Loss Training",
+  "Wedding Choreography",
+  "Hip hop",
+  "Lyrical/contemporary dance",
+  "Beginner's classes",
+  "Intermediate classes",
+  "Advanced classes",
+  "Event Choreography",
+  "Private lessons"
+];
 
 export function BookingSheet() {
   const { isBookingOpen, preSelectedCourse, closeBookingModal, addLead, showToast } = useBookingStore();
-  const [step, setStep] = useState(1);
-  const [formData, setFormData] = useState<BookingFormData>(initialFormData);
+  
+  const [formData, setFormData] = useState({ fullName: "", phone: "", email: "", courseName: "", message: "" });
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitting, setSubmitting] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   // Apply pre-selected course on open
   useEffect(() => {
     if (isBookingOpen && preSelectedCourse) {
       const courseNames: Record<string, string> = {
-        zumba: "Zumba Fitness",
-        gymnastics: "Kids Gymnastics & Freestyle",
-        hiphop: "Hip-Hop",
-        kathak: "Kathak",
+        zumba: "Zumba",
+        gymnastics: "Kids Dance Classes",
+        hiphop: "Hip hop",
+        kathak: "Dance Classes",
       };
       setFormData((prev) => ({
         ...prev,
-        courseId: preSelectedCourse,
-        courseName: courseNames[preSelectedCourse] || preSelectedCourse,
+        courseName: courseNames[preSelectedCourse] || "Dance Classes",
       }));
-      setStep(2);
     }
   }, [isBookingOpen, preSelectedCourse]);
+
+  const handleWhatsApp = () => {
+    window.open(buildEnquiryWhatsAppURL({
+      fullName: formData.fullName,
+      phone: formData.phone,
+      courseName: formData.courseName
+    }), "_blank");
+  };
+
+  const handleCopy = async () => {
+    const ok = await copyEnquiryMessageToClipboard({
+      fullName: formData.fullName,
+      phone: formData.phone,
+      courseName: formData.courseName
+    });
+    if (ok) {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
 
   // Lock body scroll
   useEffect(() => {
@@ -62,9 +80,10 @@ export function BookingSheet() {
   }, [isBookingOpen]);
 
   const resetForm = useCallback(() => {
-    setStep(1);
-    setFormData(initialFormData);
+    setFormData({ fullName: "", phone: "", email: "", courseName: "", message: "" });
+    setErrors({});
     setSubmitting(false);
+    setSuccess(false);
   }, []);
 
   const handleClose = useCallback(() => {
@@ -79,31 +98,50 @@ export function BookingSheet() {
     return () => window.removeEventListener("keydown", handler);
   }, [handleClose]);
 
-  const handleSubmit = async () => {
+  const validate = (): boolean => {
+    const newErrors: Record<string, string> = {};
+
+    if (!formData.fullName || !/^[a-zA-Z\s'-]{3,60}$/.test(formData.fullName)) {
+      newErrors.fullName = "Required";
+    }
+    if (!formData.phone || !/^\d{10}$/.test(formData.phone)) {
+      newErrors.phone = "Required";
+    }
+    if (!formData.courseName) {
+      newErrors.courseName = "Required";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!validate()) return;
+
     setSubmitting(true);
+    
+    // Simulate network delay
+    await new Promise((r) => setTimeout(r, 600));
 
-    // Simulate 800ms network delay
-    await new Promise((r) => setTimeout(r, 800));
-
-    // Build lead and add to store
+    // Build lead
     const newLead: Lead = {
       id: `LEAD-${Date.now()}`,
       fullName: formData.fullName,
       phone: `+91 ${formData.phone}`,
       course: formData.courseName,
-      batch: formData.batchLabel,
-      type: formData.studentType,
-      age: formData.age ? parseInt(formData.age) : undefined,
-      note: formData.note || undefined,
+      batch: "TBD",
+      type: "Self",
+      note: formData.message || "Trial Booking from Website",
       status: "New",
       submittedAt: new Date().toISOString(),
     };
 
     addLead(newLead);
-    showToast({ message: `Trial booked for ${formData.fullName}!`, type: "success" });
+    showToast({ message: "Trial Request submitted successfully!", type: "success" });
 
     setSubmitting(false);
-    setStep(5);
+    setSuccess(true);
   };
 
   return (
@@ -113,115 +151,159 @@ export function BookingSheet() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.3, ease: "easeInOut" }}
-          className="fixed inset-0 z-[100] flex bg-bg/95 backdrop-blur-3xl md:p-6"
+          transition={{ duration: 0.3 }}
+          className="fixed inset-0 z-[100] flex bg-black/60 backdrop-blur-sm p-4 items-center justify-center"
         >
           <motion.div
-            initial={{ scale: 0.98, y: 20 }}
+            initial={{ scale: 0.95, y: 20 }}
             animate={{ scale: 1, y: 0 }}
-            exit={{ scale: 0.98, y: 20 }}
-            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="w-full h-full flex flex-col md:flex-row bg-surface rounded-none md:rounded-3xl overflow-hidden shadow-2xl ring-1 ring-white/10"
+            exit={{ scale: 0.95, y: 20 }}
+            transition={{ duration: 0.3 }}
+            className="w-full max-w-[520px] bg-[#242938] rounded-[24px] overflow-hidden shadow-2xl relative border border-white/5"
           >
-            {/* Left Panel (Desktop only) */}
-            <div className="hidden md:flex flex-col relative w-1/2 p-12 bg-gradient-to-br from-accent-purple/20 via-accent-pink/10 to-transparent">
-              <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay"></div>
-              <div className="absolute inset-0 bg-gradient-to-t from-bg via-transparent to-transparent opacity-80" />
-              
-              <div className="relative z-10">
-                <InfiniteLogoSVG size="md" />
-              </div>
-              
-              <div className="relative z-10 mt-auto">
-                <h2 className="text-display-md font-bold text-text-primary leading-tight mb-4">
-                  Your Journey<br />Starts Here.
-                </h2>
-                <p className="text-body text-text-secondary max-w-sm">
-                  Join the most vibrant dance community in Yamuna Vihar. Book your free trial today and experience the difference.
-                </p>
-              </div>
+            <div className="absolute top-6 right-6 z-10">
+              <button
+                onClick={handleClose}
+                className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10 text-[#9CA3AF] hover:text-white transition-colors"
+                aria-label="Close"
+              >
+                <X className="w-5 h-5" />
+              </button>
             </div>
 
-            {/* Right Panel (Form) */}
-            <div className="flex-1 flex flex-col relative bg-surface md:bg-transparent min-h-0">
-              <div className="flex items-center justify-between p-4 md:p-8 border-b border-white/5 md:border-none">
-                <div className="md:hidden">
-                  <InfiniteLogoSVG size="sm" showWordmark={false} />
-                </div>
-                <h2 className="text-heading-sm font-semibold text-text-primary md:hidden">Book Free Trial</h2>
-                <button
-                  onClick={handleClose}
-                  className="w-10 h-10 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 text-text-secondary hover:text-white transition-colors ml-auto"
-                >
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
+            <div className="p-8">
+              {!success ? (
+                <>
+                  <h2 className="text-[32px] font-bold text-white leading-tight mb-1">
+                    Book a Free Trial
+                  </h2>
+                  <p className="text-[#9CA3AF] text-[16px] mb-8">
+                    We&apos;ll get back to you within 24 hours
+                  </p>
 
-              <div className="flex-1 overflow-y-auto overscroll-contain no-scrollbar">
-                <div className="px-4 py-6 md:px-12 md:py-8 min-h-full flex flex-col max-w-md w-full mx-auto">
-                  {step < 5 && (
-                    <div className="mb-8">
-                      <h3 className="text-heading-md font-bold text-text-primary mb-6 hidden md:block">
-                        Book your Free Trial
-                      </h3>
-                      <StepIndicator currentStep={step} totalSteps={5} labels={STEP_LABELS} />
+                  <form onSubmit={handleSubmit} className="space-y-6">
+                    <div>
+                      <label className="text-[15px] text-[#D1D5DB] mb-2 block font-medium">
+                        Full Name
+                      </label>
+                      <div className="relative">
+                        <input
+                          type="text"
+                          value={formData.fullName}
+                          onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                          className={`w-full bg-[#1A1F2D] border ${errors.fullName ? "border-red-500" : "border-[#303645]"} rounded-xl px-4 py-3.5 text-[16px] text-white placeholder:text-[#6B7280] focus:border-[#4B5A7D] focus:outline-none transition-colors shadow-inner`}
+                          placeholder="Your full name"
+                        />
+                        <div className="absolute right-4 top-1/2 -translate-y-1/2 text-[#4B5A7D]">
+                          <UserCircle2 className="w-5 h-5" />
+                        </div>
+                      </div>
                     </div>
-                  )}
 
-                  <div className="flex-1 relative">
-                    <AnimatePresence mode="wait">
-                      <motion.div
-                        key={step}
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -20 }}
-                        transition={{ duration: 0.2 }}
-                        className="w-full"
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                      <div>
+                        <label className="text-[15px] text-[#D1D5DB] mb-2 block font-medium">
+                          Phone Number
+                        </label>
+                        <input
+                          type="tel"
+                          maxLength={10}
+                          value={formData.phone}
+                          onChange={(e) => setFormData({ ...formData, phone: e.target.value.replace(/\D/g, "") })}
+                          className={`w-full bg-[#1A1F2D] border ${errors.phone ? "border-red-500" : "border-[#303645]"} rounded-xl px-4 py-3.5 text-[16px] text-white placeholder:text-[#6B7280] focus:border-[#4B5A7D] focus:outline-none transition-colors shadow-inner`}
+                          placeholder="+91 98XXX XXXXX"
+                        />
+                      </div>
+                      <div>
+                        <label className="text-[15px] text-[#D1D5DB] mb-2 block font-medium">
+                          Email
+                        </label>
+                        <input
+                          type="email"
+                          value={formData.email}
+                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                          className="w-full bg-[#1A1F2D] border border-[#303645] rounded-xl px-4 py-3.5 text-[16px] text-white placeholder:text-[#6B7280] focus:border-[#4B5A7D] focus:outline-none transition-colors shadow-inner"
+                          placeholder="you@email.com"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="text-[15px] text-[#D1D5DB] mb-2 block font-medium">
+                        Interested Class
+                      </label>
+                      <select
+                        value={formData.courseName}
+                        onChange={(e) => setFormData({ ...formData, courseName: e.target.value })}
+                        className={`w-full bg-[#1A1F2D] border ${errors.courseName ? "border-red-500" : "border-[#303645]"} rounded-xl px-4 py-3.5 text-[16px] text-white focus:border-[#4B5A7D] focus:outline-none appearance-none transition-colors shadow-inner`}
                       >
-                        {step === 1 && (
-                          <Step1CourseSelect
-                            selected={formData.courseId}
-                            onSelect={(id, name) => setFormData((p) => ({ ...p, courseId: id, courseName: name }))}
-                            onNext={() => setStep(2)}
-                          />
-                        )}
+                        <option value="" disabled className="text-[#6B7280]">Select a class</option>
+                        {COURSES.map(c => <option key={c} value={c}>{c}</option>)}
+                      </select>
+                    </div>
 
-                        {step === 2 && (
-                          <Step2BatchSelect
-                            courseId={formData.courseId}
-                            selected={formData.batchId}
-                            onSelect={(id, label) => setFormData((p) => ({ ...p, batchId: id, batchLabel: label }))}
-                            onNext={() => setStep(3)}
-                            onBack={() => setStep(1)}
-                          />
-                        )}
+                    <div>
+                      <label className="text-[15px] text-[#D1D5DB] mb-2 block font-medium">
+                        Message (Optional)
+                      </label>
+                      <textarea
+                        value={formData.message}
+                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                        rows={3}
+                        className="w-full bg-[#1A1F2D] border border-[#303645] rounded-xl px-4 py-3.5 text-[16px] text-white placeholder:text-[#6B7280] focus:border-[#4B5A7D] focus:outline-none transition-colors shadow-inner resize-none"
+                        placeholder="Any specific questions or preferred timing?"
+                      />
+                    </div>
 
-                        {step === 3 && (
-                          <Step3StudentForm
-                            data={formData}
-                            onChange={(updates) => setFormData((p) => ({ ...p, ...updates }))}
-                            onNext={() => setStep(4)}
-                            onBack={() => setStep(2)}
-                          />
-                        )}
+                    <div className="pt-4">
+                      <button
+                        type="submit"
+                        disabled={submitting}
+                        className="w-full bg-[#EF5350] hover:bg-[#E53935] text-white font-semibold text-[17px] py-4 rounded-xl transition-colors disabled:opacity-70 disabled:cursor-not-allowed shadow-lg"
+                      >
+                        {submitting ? "Submitting..." : "Submit Booking Request"}
+                      </button>
+                      <p className="text-center text-[#9CA3AF] text-[14px] mt-5">
+                        We respect your time. No pressure, just a conversation.
+                      </p>
+                    </div>
+                  </form>
+                </>
+              ) : (
+                <div className="flex flex-col items-center text-center py-8">
+                  <AnimatedCheckmark size={80} />
 
-                        {step === 4 && (
-                          <Step4Confirm
-                            data={formData}
-                            loading={submitting}
-                            onSubmit={handleSubmit}
-                            onBack={() => setStep(3)}
-                          />
-                        )}
+                  <h3 className="text-[28px] font-bold text-white mt-6 mb-2">
+                    Request Received! 🎉
+                  </h3>
+                  <p className="text-[#9CA3AF] text-[16px] max-w-sm mb-8">
+                    One last step — send your details to the studio via WhatsApp for an instant response.
+                  </p>
 
-                        {step === 5 && (
-                          <Step5WhatsApp data={formData} onClose={handleClose} />
-                        )}
-                      </motion.div>
-                    </AnimatePresence>
-                  </div>
+                  <button
+                    onClick={handleWhatsApp}
+                    className="w-full flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#1DA851] text-white font-semibold text-[17px] py-4 rounded-xl transition-colors shadow-lg"
+                  >
+                    <MessageCircle className="w-5 h-5" />
+                    Open WhatsApp & Send
+                  </button>
+
+                  <button
+                    onClick={handleCopy}
+                    className="mt-6 text-[#9CA3AF] hover:text-white flex items-center gap-1.5 transition-colors text-[15px]"
+                  >
+                    <Copy className="w-4 h-4" />
+                    {copied ? "Copied!" : "Copy message instead"}
+                  </button>
+
+                  <button
+                    onClick={handleClose}
+                    className="mt-8 text-[#6B7280] underline hover:text-[#9CA3AF] transition-colors text-[15px]"
+                  >
+                    Close
+                  </button>
                 </div>
-              </div>
+              )}
             </div>
           </motion.div>
         </motion.div>
