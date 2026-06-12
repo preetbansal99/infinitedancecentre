@@ -178,7 +178,7 @@ export function BookingSheet() {
                     Book a Free Trial
                   </h2>
                   <p className="text-[#9CA3AF] text-sm mb-6">
-                    We'll get back to you within 24 hours
+                    We&apos;ll get back to you within 24 hours
                   </p>
 
                   <form onSubmit={handleSubmit} className="space-y-4">
