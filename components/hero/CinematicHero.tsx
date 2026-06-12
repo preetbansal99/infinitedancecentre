@@ -311,12 +311,12 @@ export function CinematicHero({ onExplore }: CinematicHeroProps) {
               <div className="flex flex-col items-center justify-center gap-4 pointer-events-auto">
                 <div className="flex flex-wrap justify-center gap-6">
                   <span className="flex items-center gap-2 text-body font-medium text-white drop-shadow-sm">
-                    <Star className="w-5 h-5 fill-amber-400 text-amber-400" />
+                    <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
                     4.9 Google Reviews
                   </span>
                   <span className="hidden sm:inline text-white/40">|</span>
                   <span className="flex items-center gap-2 text-body font-medium text-white drop-shadow-sm">
-                    <Users className="w-5 h-5 text-cyan-400" />
+                    <Users className="w-4 h-4 text-cyan-400" />
                     200+ Students
                   </span>
                 </div>
@@ -327,7 +327,7 @@ export function CinematicHero({ onExplore }: CinematicHeroProps) {
                   className="flex items-center gap-2 text-cyan-300 bg-cyan-900/30 px-5 py-2.5 rounded-full border border-cyan-500/30 shadow-[0_0_15px_rgba(6,182,212,0.15)] hover:bg-cyan-900/50 hover:scale-105 transition-all cursor-pointer mt-2"
                   aria-label="Open location in Google Maps"
                 >
-                  <MapPin className="w-4 h-4" />
+                  <MapPin className="w-3.5 h-3.5" />
                   <span className="font-semibold tracking-wide hover:underline underline-offset-2">C-3/161, 162, Block C, Yamuna Vihar, Delhi</span>
                 </a>
               </div>
@@ -351,7 +351,7 @@ export function CinematicHero({ onExplore }: CinematicHeroProps) {
                 animate={{ y: [0, 4, 0] }}
                 transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
               >
-                <ChevronDown className="w-5 h-5 text-cyan-400" />
+                <ChevronDown className="w-4 h-4 text-cyan-400" />
               </motion.div>
             </motion.button>
           </motion.div>
