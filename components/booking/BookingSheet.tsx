@@ -159,31 +159,31 @@ export function BookingSheet() {
             animate={{ scale: 1, y: 0 }}
             exit={{ scale: 0.95, y: 20 }}
             transition={{ duration: 0.3 }}
-            className="w-full max-w-[520px] bg-[#242938] rounded-[24px] overflow-hidden shadow-2xl relative border border-white/5"
+            className="w-full max-w-[400px] bg-[#242938] rounded-[20px] overflow-hidden shadow-2xl relative border border-white/5"
           >
-            <div className="absolute top-6 right-6 z-10">
+            <div className="absolute top-4 right-4 z-10">
               <button
                 onClick={handleClose}
-                className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10 text-[#9CA3AF] hover:text-white transition-colors"
+                className="w-7 h-7 flex items-center justify-center rounded-full hover:bg-white/10 text-[#9CA3AF] hover:text-white transition-colors"
                 aria-label="Close"
               >
-                <X className="w-5 h-5" />
+                <X className="w-4 h-4" />
               </button>
             </div>
 
-            <div className="p-8">
+            <div className="p-6">
               {!success ? (
                 <>
-                  <h2 className="text-[32px] font-bold text-white leading-tight mb-1">
+                  <h2 className="text-2xl font-bold text-white leading-tight mb-1">
                     Book a Free Trial
                   </h2>
-                  <p className="text-[#9CA3AF] text-[16px] mb-8">
-                    We&apos;ll get back to you within 24 hours
+                  <p className="text-[#9CA3AF] text-sm mb-6">
+                    We'll get back to you within 24 hours
                   </p>
 
-                  <form onSubmit={handleSubmit} className="space-y-6">
+                  <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
-                      <label className="text-[15px] text-[#D1D5DB] mb-2 block font-medium">
+                      <label className="text-sm text-[#D1D5DB] mb-1.5 block font-medium">
                         Full Name
                       </label>
                       <div className="relative">
@@ -191,51 +191,52 @@ export function BookingSheet() {
                           type="text"
                           value={formData.fullName}
                           onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                          className={`w-full bg-[#1A1F2D] border ${errors.fullName ? "border-red-500" : "border-[#303645]"} rounded-xl px-4 py-3.5 text-[16px] text-white placeholder:text-[#6B7280] focus:border-[#4B5A7D] focus:outline-none transition-colors shadow-inner`}
+                          className={`w-full bg-[#1A1F2D] border ${errors.fullName ? "border-red-500" : "border-[#303645]"} rounded-lg px-3 py-2.5 text-sm text-white placeholder:text-[#6B7280] focus:border-[#4B5A7D] focus:outline-none transition-colors shadow-inner`}
                           placeholder="Your full name"
                         />
-                        <div className="absolute right-4 top-1/2 -translate-y-1/2 text-[#4B5A7D]">
-                          <UserCircle2 className="w-5 h-5" />
+                        <div className="absolute right-3 top-1/2 -translate-y-1/2 text-[#4B5A7D]">
+                          <UserCircle2 className="w-4 h-4" />
                         </div>
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                      <div>
-                        <label className="text-[15px] text-[#D1D5DB] mb-2 block font-medium">
-                          Phone Number
-                        </label>
-                        <input
-                          type="tel"
-                          maxLength={10}
-                          value={formData.phone}
-                          onChange={(e) => setFormData({ ...formData, phone: e.target.value.replace(/\D/g, "") })}
-                          className={`w-full bg-[#1A1F2D] border ${errors.phone ? "border-red-500" : "border-[#303645]"} rounded-xl px-4 py-3.5 text-[16px] text-white placeholder:text-[#6B7280] focus:border-[#4B5A7D] focus:outline-none transition-colors shadow-inner`}
-                          placeholder="+91 98XXX XXXXX"
-                        />
-                      </div>
-                      <div>
-                        <label className="text-[15px] text-[#D1D5DB] mb-2 block font-medium">
-                          Email
-                        </label>
-                        <input
-                          type="email"
-                          value={formData.email}
-                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                          className="w-full bg-[#1A1F2D] border border-[#303645] rounded-xl px-4 py-3.5 text-[16px] text-white placeholder:text-[#6B7280] focus:border-[#4B5A7D] focus:outline-none transition-colors shadow-inner"
-                          placeholder="you@email.com"
-                        />
-                      </div>
+                    <div>
+                      <label className="text-xs text-[#D1D5DB] mb-1 block font-medium">
+                        Phone Number
+                      </label>
+                      <input
+                        type="tel"
+                        maxLength={10}
+                        value={formData.phone}
+                        onChange={(e) => setFormData({ ...formData, phone: e.target.value.replace(/\D/g, "") })}
+                        className={`w-full bg-[#1A1F2D] border ${errors.phone ? "border-red-500" : "border-[#303645]"} rounded-lg px-3 py-2 text-xs text-white placeholder:text-[#6B7280] focus:border-[#4B5A7D] focus:outline-none transition-colors shadow-inner`}
+                        placeholder="+91 98XXX XXXXX"
+                      />
+                      {errors.phone && <p className="text-red-500 text-[10px] mt-1">{errors.phone}</p>}
                     </div>
 
                     <div>
-                      <label className="text-[15px] text-[#D1D5DB] mb-2 block font-medium">
+                      <label className="text-xs text-[#D1D5DB] mb-1 block font-medium">
+                        Email
+                      </label>
+                      <input
+                        type="email"
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        className={`w-full bg-[#1A1F2D] border ${errors.email ? "border-red-500" : "border-[#303645]"} rounded-lg px-3 py-2 text-xs text-white placeholder:text-[#6B7280] focus:border-[#4B5A7D] focus:outline-none transition-colors shadow-inner`}
+                        placeholder="you@email.com"
+                      />
+                      {errors.email && <p className="text-red-500 text-[10px] mt-1">{errors.email}</p>}
+                    </div>
+
+                    <div>
+                      <label className="text-xs text-[#D1D5DB] mb-1 block font-medium">
                         Interested Class
                       </label>
                       <select
                         value={formData.courseName}
                         onChange={(e) => setFormData({ ...formData, courseName: e.target.value })}
-                        className={`w-full bg-[#1A1F2D] border ${errors.courseName ? "border-red-500" : "border-[#303645]"} rounded-xl px-4 py-3.5 text-[16px] text-white focus:border-[#4B5A7D] focus:outline-none appearance-none transition-colors shadow-inner`}
+                        className={`w-full bg-[#1A1F2D] border ${errors.courseName ? "border-red-500" : "border-[#303645]"} rounded-lg px-3 py-2 text-xs text-white focus:border-[#4B5A7D] focus:outline-none appearance-none transition-colors shadow-inner`}
                       >
                         <option value="" disabled className="text-[#6B7280]">Select a class</option>
                         {COURSES.map(c => <option key={c} value={c}>{c}</option>)}
@@ -243,27 +244,27 @@ export function BookingSheet() {
                     </div>
 
                     <div>
-                      <label className="text-[15px] text-[#D1D5DB] mb-2 block font-medium">
+                      <label className="text-sm text-[#D1D5DB] mb-1.5 block font-medium">
                         Message (Optional)
                       </label>
                       <textarea
                         value={formData.message}
                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                        rows={3}
-                        className="w-full bg-[#1A1F2D] border border-[#303645] rounded-xl px-4 py-3.5 text-[16px] text-white placeholder:text-[#6B7280] focus:border-[#4B5A7D] focus:outline-none transition-colors shadow-inner resize-none"
-                        placeholder="Any specific questions or preferred timing?"
+                        rows={2}
+                        className="w-full bg-[#1A1F2D] border border-[#303645] rounded-lg px-3 py-2.5 text-sm text-white placeholder:text-[#6B7280] focus:border-[#4B5A7D] focus:outline-none transition-colors shadow-inner resize-none"
+                        placeholder="Any specific questions?"
                       />
                     </div>
 
-                    <div className="pt-4">
+                    <div className="pt-2">
                       <button
                         type="submit"
                         disabled={submitting}
-                        className="w-full bg-[#EF5350] hover:bg-[#E53935] text-white font-semibold text-[17px] py-4 rounded-xl transition-colors disabled:opacity-70 disabled:cursor-not-allowed shadow-lg"
+                        className="w-full bg-[#EF5350] hover:bg-[#E53935] text-white font-semibold text-sm py-3 rounded-lg transition-colors disabled:opacity-70 disabled:cursor-not-allowed shadow-lg"
                       >
                         {submitting ? "Submitting..." : "Submit Booking Request"}
                       </button>
-                      <p className="text-center text-[#9CA3AF] text-[14px] mt-5">
+                      <p className="text-center text-[#9CA3AF] text-xs mt-3">
                         We respect your time. No pressure, just a conversation.
                       </p>
                     </div>
