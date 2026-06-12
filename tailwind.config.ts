@@ -6,29 +6,26 @@ const config: Config = {
     "./components/**/*.{ts,tsx}",
     "./hooks/**/*.{ts,tsx}",
   ],
+  darkMode: "class",
   theme: {
     extend: {
       colors: {
-        // Base — warm charcoal instead of cold blue-black
-        bg:           "#12100E",
-        "bg-site":    "#1A1512",
-        surface:      "#211E1A",
-        "surface-el": "#2A2620",
-        border:       "rgba(255,255,255,0.13)",
+        // Base
+        bg:           "#0A0A0F",
+        "bg-site":    "#0D0D12",
+        surface:      "#16161E",
+        "surface-el": "#1E1E28",
+        border:       "rgba(255,255,255,0.08)",
         // Text
-        "text-primary":   "#F5F0EB",
-        "text-secondary": "#9C9590",
-        "text-muted":     "#6B6560",
-        // Brand — warm gold/amber primary, magenta secondary
-        "accent-gold":    "#D4A853",
-        "accent-amber":   "#F0B429",
-        "accent-warm":    "#E8C88A",
+        "text-primary":   "#F5F5F7",
+        "text-secondary": "#8E8E93",
+        "text-muted":     "#636366",
+        // Brand
+        "accent-blue":    "#3B82F6",
+        "accent-purple":  "#8B5CF6",
+        "accent-light":   "#C084FC",
         "cta-magenta":    "#E11D48",
         "cta-glow":       "rgba(225,29,72,0.3)",
-        // Legacy aliases (to avoid breaking all existing references)
-        "accent-blue":    "#D4A853",
-        "accent-purple":  "#D4A853",
-        "accent-light":   "#E8C88A",
         // Status
         success:  "#22C55E",
         warning:  "#F59E0B",
@@ -40,21 +37,19 @@ const config: Config = {
         whatsapp: "#25D366",
       },
       fontFamily: {
-        sans:    ["'Satoshi'", "system-ui", "sans-serif"],
-        display: ["'Clash Display'", "system-ui", "sans-serif"],
-        mono:    ["JetBrains Mono", "monospace"],
+        sans: ["Inter", "system-ui", "sans-serif"],
+        mono: ["JetBrains Mono", "monospace"],
       },
       fontSize: {
-        // Fluid type scale with clamp()
-        "display-xl": ["clamp(2.25rem, 5vw, 3rem)",   { lineHeight: "1.1",  fontWeight: "800" }],
-        "display-lg": ["clamp(1.875rem, 4vw, 2.5rem)", { lineHeight: "1.15", fontWeight: "700" }],
-        "display-md": ["clamp(1.5rem, 3.5vw, 2rem)",   { lineHeight: "1.2",  fontWeight: "700" }],
-        heading:      ["clamp(1.25rem, 2.5vw, 1.5rem)", { lineHeight: "1.3",  fontWeight: "600" }],
-        "heading-sm": ["clamp(1.1rem, 2vw, 1.25rem)",   { lineHeight: "1.35", fontWeight: "600" }],
-        body:         ["1rem",    { lineHeight: "1.6", fontWeight: "400" }],
-        "body-sm":    ["0.875rem", { lineHeight: "1.5", fontWeight: "400" }],
-        caption:      ["0.75rem",  { lineHeight: "1.4", fontWeight: "400" }],
-        mono:         ["0.8125rem", { lineHeight: "1.4", fontWeight: "400" }],
+        "display-xl": ["48px", { lineHeight: "1.1", fontWeight: "800" }],
+        "display-lg": ["40px", { lineHeight: "1.15", fontWeight: "700" }],
+        "display-md": ["32px", { lineHeight: "1.2", fontWeight: "700" }],
+        heading:      ["24px", { lineHeight: "1.3", fontWeight: "600" }],
+        "heading-sm": ["20px", { lineHeight: "1.35", fontWeight: "600" }],
+        body:         ["16px", { lineHeight: "1.6", fontWeight: "400" }],
+        "body-sm":    ["14px", { lineHeight: "1.5", fontWeight: "400" }],
+        caption:      ["12px", { lineHeight: "1.4", fontWeight: "400" }],
+        mono:         ["13px", { lineHeight: "1.4", fontWeight: "400" }],
       },
       spacing: {
         xs:  "4px",
@@ -79,11 +74,11 @@ const config: Config = {
         glass:    "0 4px 24px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06)",
         magenta:  "0 0 20px rgba(225,29,72,0.35), 0 4px 12px rgba(225,29,72,0.2)",
         "magenta-lg": "0 0 40px rgba(225,29,72,0.5), 0 8px 24px rgba(225,29,72,0.3)",
-        "neon-blue":   "0 0 8px #D4A853, 0 0 24px rgba(212,168,83,0.6), 0 0 48px rgba(212,168,83,0.3)",
-        "neon-purple": "0 0 8px #D4A853, 0 0 24px rgba(212,168,83,0.6), 0 0 48px rgba(212,168,83,0.3)",
-        "neon-combo":  "0 0 12px #D4A853, 0 0 30px rgba(212,168,83,0.7), 0 0 60px rgba(232,200,138,0.4)",
+        "neon-blue":   "0 0 8px #3B82F6, 0 0 24px rgba(59,130,246,0.6), 0 0 48px rgba(59,130,246,0.3)",
+        "neon-purple": "0 0 8px #8B5CF6, 0 0 24px rgba(139,92,246,0.6), 0 0 48px rgba(139,92,246,0.3)",
+        "neon-combo":  "0 0 12px #3B82F6, 0 0 30px rgba(139,92,246,0.7), 0 0 60px rgba(192,132,252,0.4)",
         "overdue-glow": "0 0 16px rgba(239,68,68,0.3)",
-        "impact":       "0 0 40px rgba(225,29,72,0.8), 0 0 80px rgba(212,168,83,0.4)",
+        "impact":       "0 0 40px rgba(225,29,72,0.8), 0 0 80px rgba(139,92,246,0.4)",
       },
       backdropBlur: {
         xs: "4px",
@@ -107,6 +102,7 @@ const config: Config = {
       },
       animation: {
         "neon-pulse":    "neonPulse 3s ease-in-out infinite",
+        "cta-pulse":     "ctaPulse 2s ease-in-out infinite",
         "overdue-pulse": "overduePulse 2s ease-in-out infinite",
         "shimmer":       "shimmer 1.5s linear infinite",
         "float":         "float 6s ease-in-out infinite",
@@ -117,6 +113,10 @@ const config: Config = {
         neonPulse: {
           "0%, 100%": { opacity: "0.80", filter: "brightness(1.0)" },
           "50%":      { opacity: "1.00", filter: "brightness(1.3)" },
+        },
+        ctaPulse: {
+          "0%, 100%": { boxShadow: "0 0 20px rgba(225,29,72,0.35)" },
+          "50%":      { boxShadow: "0 0 40px rgba(225,29,72,0.60)" },
         },
         overduePulse: {
           "0%, 100%": { opacity: "0.70" },

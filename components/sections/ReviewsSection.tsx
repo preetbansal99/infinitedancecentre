@@ -33,14 +33,14 @@ export function ReviewsSection() {
           </div>
         </motion.div>
 
-        <div className="flex overflow-x-auto gap-5 pb-6 snap-x snap-mandatory scrollbar-hide -mx-6 px-6 md:mx-0 md:px-0 md:grid md:grid-cols-2 md:overflow-visible">
+        <div className="flex overflow-x-auto gap-5 pb-6 snap-x snap-mandatory custom-scrollbar -mx-6 px-6 md:mx-0 md:px-0">
           {MOCK_REVIEWS.map((review, i) => (
             <motion.div
               key={review.id}
               initial={{ opacity: 0, x: 24 }}
               animate={inView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.5, delay: i * 0.08 }}
-              className="w-[88vw] max-w-[340px] flex-shrink-0 snap-start md:w-auto md:max-w-none"
+              className="w-[85vw] md:w-[350px] flex-shrink-0 snap-start"
             >
               <GlassCard radius="lg" className="p-5 h-full flex flex-col relative group hover:border-accent-light/30 transition-colors">
                 <Quote className="w-5 h-5 text-accent-purple/40 mb-3" />
