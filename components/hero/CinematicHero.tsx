@@ -18,19 +18,17 @@ import { ScrollProgressBar } from "@/components/hero/ScrollProgressBar";
 import { useBookingStore } from "@/hooks/useBookingStore";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { ClayButton } from "@/components/shared/ClayButton";
-import { ChevronDown, MapPin } from "lucide-react";
+import { ChevronDown, MapPin, Star, Users } from "lucide-react";
 
-// ── Ambient Particles (internal sub-component) ──────────────────────────
-const PARTICLE_CONFIGS = Array.from({ length: 24 }, (_, i) => ({
+// ── Ambient Particles (internal sub-component) ──────────────────────────────────
+const PARTICLE_CONFIGS = Array.from({ length: 10 }, (_, i) => ({
   id: i,
-  x: [-45, -38, -30, -22, -15, 0, 15, 22, 30, 38, 45,
-      -40, -25, -10, 10, 25, 40, -35, -18, 5, 18, 35, -28, 28][i] + "%",
-  y: [-40, -20,  10, -35, 20, -45, -30, 15, -10, -40, 25,
-       30, -25,  40, -40, 35, -15,  -5, 42, -42, -18, 12, -30, 30][i] + "%",
-  size: [3,2,4,2,3,2,4,3,2,3,2,4,3,2,3,4,2,3,2,4,3,2,3,4][i],
-  color: ["#3B82F6","#8B5CF6","#C084FC","#F0ABFC","#FFFFFF"][i % 5],
-  delay: i * 0.18,
-  duration: 3 + (i % 4) * 0.8,
+  x: [-40, -22, 0, 22, 40, -30, 15, 30, -15, 35][i] + "%",
+  y: [-35, 15, -40, -20, 25, 30, -30, 10, 40, -10][i] + "%",
+  size: [3, 2, 4, 2, 3, 2, 3, 4, 2, 3][i],
+  color: ["#D4A853", "#E8C88A", "#F0B429", "#FFFFFF", "#D4A853"][i % 5],
+  delay: i * 0.3,
+  duration: 5 + (i % 3) * 1.2,
 }));
 
 function AmbientParticles({ progress }: { progress: MotionValue<number> }) {
@@ -279,7 +277,7 @@ export function CinematicHero({ onExplore }: CinematicHeroProps) {
             <div className="flex flex-col sm:flex-row gap-3 w-full max-w-xs">
               <motion.button
                 onClick={() => openBookingModal()}
-                className="flex-1 bg-cta-magenta text-white font-semibold py-4 px-6 rounded-lg shadow-magenta animate-cta-pulse text-body-sm tracking-wide"
+                className="flex-1 bg-cta-magenta text-white font-semibold py-4 px-6 rounded-lg shadow-magenta hover:shadow-magenta-lg transition-shadow text-body-sm tracking-wide"
                 whileTap={{ scale: 0.97 }}
                 whileHover={{ boxShadow: "0 0 40px rgba(225,29,72,0.60)" }}
                 aria-label="Book a free trial class"
@@ -307,9 +305,9 @@ export function CinematicHero({ onExplore }: CinematicHeroProps) {
               style={{ opacity: socialProofOpacity }}
             >
               <div className="flex flex-wrap justify-center gap-4">
-                <span>⭐ 4.9 Google Reviews</span>
+                <span className="flex items-center gap-1.5"><Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" /> 4.9 Google Reviews</span>
                 <span className="hidden sm:inline">•</span>
-                <span>👥 200+ Students</span>
+                <span className="flex items-center gap-1.5"><Users className="w-3.5 h-3.5" /> 200+ Students</span>
               </div>
               <a 
                 href="https://www.google.com/maps/search/Infinite+Dance+Centre+Yamuna+Vihar+Delhi" 

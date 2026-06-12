@@ -83,7 +83,7 @@ export function DancerSVG({ className = "" }: { className?: string }) {
     <div className={`relative flex items-center justify-center w-64 h-64 md:w-80 md:h-80 ${className}`}>
       {/* Dynamic heartbeat aura - hardware accelerated */}
       <motion.div
-        className="absolute inset-0 bg-accent-purple/30 blur-[60px] rounded-full mix-blend-screen will-change-transform"
+        className="absolute inset-0 bg-accent-gold/30 blur-[60px] rounded-full mix-blend-screen will-change-transform"
         animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.7, 0.5] }}
         transition={{ duration: 4, ease: "easeInOut", repeat: Infinity }}
       />
@@ -100,7 +100,7 @@ export function DancerSVG({ className = "" }: { className?: string }) {
           className="absolute inset-0 w-full h-full overflow-visible"
           style={{ transform: "translateZ(-8px)", opacity: 0.7 }}
         >
-          <g fill="#A78BFA">
+          <g fill="#B8903A">
             <AnimatedDancerPaths />
           </g>
         </svg>
@@ -113,9 +113,9 @@ export function DancerSVG({ className = "" }: { className?: string }) {
         >
           <defs>
             <linearGradient id="heroDancerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#E0E7FF" />
-              <stop offset="50%" stopColor="#C4B5FD" />
-              <stop offset="100%" stopColor="#FBCFE8" />
+              <stop offset="0%" stopColor="#F5E6C8" />
+              <stop offset="50%" stopColor="#D4A853" />
+              <stop offset="100%" stopColor="#F0B429" />
             </linearGradient>
           </defs>
           <g fill="url(#heroDancerGrad)">
@@ -129,7 +129,7 @@ export function DancerSVG({ className = "" }: { className?: string }) {
           className="absolute inset-0 w-full h-full overflow-visible"
           style={{ transform: "translateZ(8px)", opacity: 0.5 }}
         >
-          <g fill="#FBCFE8">
+          <g fill="#F5E6C8">
             <AnimatedDancerPaths />
           </g>
         </svg>

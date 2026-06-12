@@ -41,7 +41,7 @@ export function CoursesSection() {
         </motion.div>
 
         {/* Courses Container */}
-        <div className="flex overflow-x-auto snap-x snap-mandatory gap-5 pb-8 -mx-6 px-6 md:mx-0 md:px-0 md:grid md:grid-cols-3 md:overflow-visible scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+        <div className="flex overflow-x-auto snap-x snap-mandatory gap-5 pb-8 -mx-6 px-6 md:mx-0 md:px-0 md:grid md:grid-cols-2 md:overflow-visible scrollbar-hide">
           {MOCK_COURSES.map((course, i) => {
             const Icon = ICONS[course.id] || Music;
             return (
@@ -50,7 +50,7 @@ export function CoursesSection() {
                 initial={{ opacity: 0, y: 24 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: i * 0.05 }}
-                className="w-[85vw] max-w-[320px] flex-shrink-0 snap-center md:w-auto md:max-w-none"
+                className="w-[88vw] max-w-[340px] flex-shrink-0 snap-center md:w-auto md:max-w-none"
               >
                 <GlassCard radius="lg" className="p-5 md:p-6 group hover:border-white/15 transition-colors h-full flex flex-col">
                   <div className="flex items-start gap-4 mb-4">
